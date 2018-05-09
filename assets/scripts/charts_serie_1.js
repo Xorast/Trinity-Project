@@ -53,6 +53,7 @@ function makeGraph(error, inputData) {
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
+        .brushOn(true)
         .mouseZoomable(true)
         .compose([
             dc.lineChart(chart_I_A1)
@@ -86,9 +87,10 @@ function makeGraph(error, inputData) {
         .rightYAxisLabel("ETP (Units)")
         .rightY(d3.scale.linear().domain([0, 10]))
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
+        .brushOn(true)
+        .mouseZoomable(true)
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
-        .mouseZoomable(true)
         .compose([
             dc.barChart(chart_I_B1)
                 .colors("purple")
