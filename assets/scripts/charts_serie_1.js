@@ -28,7 +28,7 @@ function makeGraph(error, inputData) {
     // DISPLAY & LAYOUT --------------------------------------------------------
     
     let layoutChartMainHeight   = 400;
-    let layoutChartMainWidth    = 1000;
+    let layoutChartMainWidth    = 1200;
 
     // FUNCTIONS ---------------------------------------------------------------
     
@@ -61,7 +61,7 @@ function makeGraph(error, inputData) {
         .height(layoutChartMainHeight)
         .dimension(dimDate)
         .x(d3.time.scale().domain([minDate, maxDate]))
-        .y(d3.scale.linear().domain([0, 2]))
+        .y(d3.scale.linear().domain([0, 1.5]))
         
         .yAxisLabel("Flow (M3/DAY)")
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
@@ -75,6 +75,7 @@ function makeGraph(error, inputData) {
                 .group(groupFilteredTotalFlow, "Flow - Total"),
         ])
         .render()
+        .xAxis().tickFormat(d3.time.format("%d-%B-%y"));
     
     // CHART I.B1 - RAIN & ETP -------------------------------------------------
     
@@ -117,7 +118,8 @@ function makeGraph(error, inputData) {
                 .group(groupFilteredETP, "ETP dint")
                 .useRightYAxis(true)
         ])
-        .render();
+        .render()
+        .xAxis().tickFormat(d3.time.format("%d-%B-%y"));
     
 
     // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
