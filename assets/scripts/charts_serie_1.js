@@ -38,6 +38,7 @@ function makeGraph(error, inputData) {
 
     let chart_I_A = dc.compositeChart("#chart_I_A");
 
+    // TO BE SOLVED : BRUSH ON NOT WORKING
     chart_I_A
         .width(1000)
         .height(400)
@@ -51,6 +52,7 @@ function makeGraph(error, inputData) {
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
         .mouseZoomable(true)
+        .brushOn(true)
         .compose([
             dc.lineChart(chart_I_A)
                 .colors("blue")
@@ -71,6 +73,7 @@ function makeGraph(error, inputData) {
     // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
 
     let dimFlowNameTotal = ndx.dimension(function(d) { return "Flow - Total" });
+    
     let groupFlowBoxTotal = dimFlowNameTotal.group().reduce(
         function(p, v) {
             p.push(v.q);
@@ -92,8 +95,27 @@ function makeGraph(error, inputData) {
         .height(500)
         .margins({ top: 10, right: 50, bottom: 30, left: 50 })
         .y(d3.scale.linear().domain([-0.1, +1.5]))
+        .yAxisLabel("Flow (M3/DAY)")
         .dimension(dimFlowNameTotal)
         .group(groupFlowBoxTotal);
+        
+    // CHART II.B1 - VOLUME - CUMULATIVE RAIN ----------------------------------  
+    
+    
+    // To be fixed : that's not the cumulative rain that is here ! V = Q * dt ?
+    let groupVolumeRain = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"));
+    
+    let chart_II_B1 = dc.barChart("#chart_II_B1");
+    
+    chart_II_B1
+        .width(250)
+        .height(250)
+        .dimension(dimFlowNameTotal)
+        .group(groupVolumeRain)
+        .x(d3.scale.ordinal())
+        .xUnits(dc.units.ordinal)
+        .xAxisLabel("Volume (M3)");
+    
 
     // CHART III.A1 - SEASONS PIE CHART ----------------------------------------    
 
@@ -134,9 +156,8 @@ function makeGraph(error, inputData) {
         .height(330)
         .radius(100)
         .dimension(dimSeason)
-        .group(groupSeason)
-
-
+        .group(groupSeason);
+        
     // -------------------------------------------------------------------------
     // END OF MAKEGRAPH
     dc.renderAll();
