@@ -24,8 +24,13 @@ function makeGraph(error, inputData) {
 
     // Maximum data to be processed. Create an alert / write it cleary somewhere for the user to see.
     inputData = inputData.slice(0, 1095);
+    
+    // DISPLAY & LAYOUT
+    
+    let layoutChartMainHeight = 400;
+    let layoutChartMainWidth = 1000;
 
-    // CHART I.A - BASE FLOW LINECHART ------------------------------------------
+    // CHART I.A1 - BASE FLOW LINECHART ------------------------------------------
 
     let dimDate = ndx.dimension(dc.pluck("date"));
 
@@ -34,41 +39,67 @@ function makeGraph(error, inputData) {
 
     let dimTotalFlow = dimDate.group().reduceSum(dc.pluck("q"));
 
-    let dimRain = dimDate.group().reduceSum(dc.pluck("rain"));
-
-    let chart_I_A = dc.compositeChart("#chart_I_A");
+    let chart_I_A1 = dc.compositeChart("#chart_I_A");
 
     // TO BE SOLVED : BRUSH ON NOT WORKING
-    chart_I_A
-        .width(1000)
-        .height(400)
+    chart_I_A1
+        .width(layoutChartMainWidth)
+        .height(layoutChartMainHeight)
         .dimension(dimDate)
+        .elasticX(true)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear().domain([0, 2]))
         .yAxisLabel("Flow (M3/DAY)")
-        .rightY(d3.scale.linear().domain([200, 0]))
-        .rightYAxisLabel("Rain")
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
         .mouseZoomable(true)
-        .brushOn(true)
         .compose([
-            dc.lineChart(chart_I_A)
-                .colors("blue")
-                .group(dimTotalFlow, "Flow - Total")
-                .colors("blue")
-                .group(dimTotalFlow, "Flow - Total")
-                .colors("blue")
-                .group(dimTotalFlow, "Flow - Total")
+            dc.lineChart(chart_I_A1)
                 .colors("blue")
                 .group(dimTotalFlow, "Flow - Total"),
-            dc.lineChart(chart_I_A)
+        ])
+        .render()
+    
+    // CHART I.B1 - RAIN & ETP ---------------------------------------------------
+    
+    let dimDateII = ndx.dimension(dc.pluck("date"));
+    
+        var minDateII = dimDateII.bottom(1)[0].date;
+        var maxDateII = dimDateII.top(1)[0].date;
+        
+    let dimETP = dimDateII.group().reduceSum(dc.pluck("ETP_dint"));
+    
+    let dimRain = dimDateII.group().reduceSum(dc.pluck("rain"));
+    
+    let chart_I_B1 = dc.compositeChart("#chart_I_B1");
+
+    // TO BE SOLVED : BRUSH ON NOT WORKING
+    chart_I_B1
+        .width(layoutChartMainWidth)
+        .height(layoutChartMainHeight/2)
+        .dimension(dimDateII)
+        .elasticX(true)
+        .x(d3.time.scale().domain([minDateII, maxDateII]))
+        .yAxisLabel("RAIN (MM)")
+        .y(d3.scale.linear().domain([0, 50]))
+        .rightYAxisLabel("ETP (Units)")
+        .rightY(d3.scale.linear().domain([0, 10]))
+        .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
+        .renderHorizontalGridLines(true)
+        .renderVerticalGridLines(true)
+        .mouseZoomable(true)
+        .compose([
+            dc.barChart(chart_I_B1)
+                .colors("purple")
+                .group(dimRain, "Rain"),
+            dc.lineChart(chart_I_B1)
                 .colors("red")
-                .group(dimRain, "Rain")
+                .group(dimETP, "ETP dint")
                 .useRightYAxis(true)
         ])
         .render()
+    
 
     // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
 
@@ -98,11 +129,10 @@ function makeGraph(error, inputData) {
         .yAxisLabel("Flow (M3/DAY)")
         .dimension(dimFlowNameTotal)
         .group(groupFlowBoxTotal);
+    
         
     // CHART II.B1 - VOLUME - CUMULATIVE RAIN ----------------------------------  
     
-    
-    // To be fixed : that's not the cumulative rain that is here ! V = Q * dt ?
     let groupVolumeRain = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"));
     
     let chart_II_B1 = dc.barChart("#chart_II_B1");
