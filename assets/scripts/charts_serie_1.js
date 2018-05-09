@@ -8,38 +8,52 @@ queue()
 // CHARTS ----------------------------------------------------------------------
 function makeGraph(error, inputData) {
 
-    let ndx = crossfilter(inputData);
+    let ndx         = crossfilter(inputData);
 
     // FORMAT - STRING TO DATE & NUMBERS ---------------------------------------
-    let parseDate = d3.time.format("%Y-%m-%d").parse;
+    let parseDate   = d3.time.format("%Y-%m-%d").parse;
 
     inputData.forEach(function(d) {
-        d.date = parseDate(d.date);
-        d.q = +d.q;
-        d.rain = +d.rain;
-        d.temp = +d.temp;
-        d.ETP_dint = +d.ETP_dint;
-        d.peff = +d.peff;
+        d.date      = parseDate(d.date);
+        d.q         = +d.q;
+        d.rain      = +d.rain;
+        d.temp      = +d.temp;
+        d.ETP_dint  = +d.ETP_dint;
+        d.peff      = +d.peff;
     });
 
     // Maximum data to be processed. Create an alert / write it cleary somewhere for the user to see.
-    inputData = inputData.slice(0, 1095);
+    inputData       = inputData.slice(0, 1095);
     
-    // DISPLAY & LAYOUT
+    // DISPLAY & LAYOUT --------------------------------------------------------
     
-    let layoutChartMainHeight = 400;
-    let layoutChartMainWidth = 1000;
+    let layoutChartMainHeight   = 400;
+    let layoutChartMainWidth    = 1000;
 
-    // CHART I.A1 - BASE FLOW LINECHART ------------------------------------------
+    // FUNCTIONS ---------------------------------------------------------------
+    
+    // Enables ElasticX to work when zooming in another chart
+    // https://stackoverflow.com/questions/36494956/elasticxtrue-doesnt-work-dc-js
+    function remove_empty_bins(source_group) {
+        return {
+            all: function() {
+                return source_group.all().filter(function(d) {
+                    return d.value != 0;
+                });
+            }
+        };}
+    
+    // CHART I.A1 - BASE FLOW LINECHART ----------------------------------------
 
-    let dimDate = ndx.dimension(dc.pluck("date"));
+    let dimDate         = ndx.dimension(dc.pluck("date"));
 
-    var minDate = dimDate.bottom(1)[0].date;
-    var maxDate = dimDate.top(1)[0].date;
+    var minDate         = dimDate.bottom(1)[0].date;
+    var maxDate         = dimDate.top(1)[0].date;
 
-    let dimTotalFlow = dimDate.group().reduceSum(dc.pluck("q"));
+    let groupTotalFlow  = dimDate.group().reduceSum(dc.pluck("q"));
+    let groupFilteredTotalFlow = remove_empty_bins(groupTotalFlow);
 
-    let chart_I_A1 = dc.compositeChart("#chart_I_A");
+    let chart_I_A1      = dc.compositeChart("#chart_I_A");
 
     // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
     chart_I_A1
@@ -48,6 +62,7 @@ function makeGraph(error, inputData) {
         .dimension(dimDate)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear().domain([0, 2]))
+        
         .yAxisLabel("Flow (M3/DAY)")
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         .renderHorizontalGridLines(true)
@@ -57,20 +72,22 @@ function makeGraph(error, inputData) {
         .compose([
             dc.lineChart(chart_I_A1)
                 .colors("blue")
-                .group(dimTotalFlow, "Flow - Total"),
+                .group(groupFilteredTotalFlow, "Flow - Total"),
         ])
         .render()
     
-    // CHART I.B1 - RAIN & ETP ---------------------------------------------------
+    // CHART I.B1 - RAIN & ETP -------------------------------------------------
     
-    let dimDateII = ndx.dimension(dc.pluck("date"));
+    let dimDateII       = ndx.dimension(dc.pluck("date"));
     
-        var minDateII = dimDateII.bottom(1)[0].date;
-        var maxDateII = dimDateII.top(1)[0].date;
+        var minDateII   = dimDateII.bottom(1)[0].date;
+        var maxDateII   = dimDateII.top(1)[0].date;
         
-    let dimETP = dimDateII.group().reduceSum(dc.pluck("ETP_dint"));
-    
-    let dimRain = dimDateII.group().reduceSum(dc.pluck("rain"));
+    let groupRain         = dimDateII.group().reduceSum(dc.pluck("rain"));
+    let groupFilteredRain = remove_empty_bins(groupRain);
+
+    let groupETP         = dimDateII.group().reduceSum(dc.pluck("ETP_dint"));
+    let groupFilteredETP = remove_empty_bins(groupETP);
     
     let chart_I_B1 = dc.compositeChart("#chart_I_B1");
 
@@ -83,20 +100,21 @@ function makeGraph(error, inputData) {
         .x(d3.time.scale().domain([minDateII, maxDateII]))
         .yAxisLabel("RAIN (MM)")
         .y(d3.scale.linear().domain([0, 50]))
+        .elasticX(true)
         .rightYAxisLabel("ETP (Units)")
         .rightY(d3.scale.linear().domain([0, 10]))
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
-        .mouseZoomable(true)
+        .mouseZoomable(false)
         .brushOn(false)
         .compose([
             dc.barChart(chart_I_B1)
                 .colors("purple")
-                .group(dimRain, "Rain"),
+                .group(groupFilteredRain, "Rain"),
             dc.lineChart(chart_I_B1)
                 .colors("red")
-                .group(dimETP, "ETP dint")
+                .group(groupFilteredETP, "ETP dint")
                 .useRightYAxis(true)
         ])
         .render();
@@ -104,9 +122,9 @@ function makeGraph(error, inputData) {
 
     // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
 
-    let dimFlowNameTotal = ndx.dimension(function(d) { return "Flow - Total" });
+    let dimFlowNameTotal    = ndx.dimension(function(d) { return "Flow - Total" });
     
-    let groupFlowBoxTotal = dimFlowNameTotal.group().reduce(
+    let groupFlowBoxTotal   = dimFlowNameTotal.group().reduce(
         function(p, v) {
             p.push(v.q);
             return p;
@@ -120,7 +138,7 @@ function makeGraph(error, inputData) {
         }
     );
 
-    let chart_II_A1 = dc.boxPlot("#chart_II_A1");
+    let chart_II_A1         = dc.boxPlot("#chart_II_A1");
 
     chart_II_A1
         .width(250)
@@ -134,9 +152,9 @@ function makeGraph(error, inputData) {
         
     // CHART II.B1 - VOLUME - CUMULATIVE RAIN ----------------------------------  
     
-    let groupVolumeRain = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"));
+    let groupVolumeRain     = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"));
     
-    let chart_II_B1 = dc.barChart("#chart_II_B1");
+    let chart_II_B1         = dc.barChart("#chart_II_B1");
     
     chart_II_B1
         .width(250)
@@ -178,9 +196,9 @@ function makeGraph(error, inputData) {
     
     });
 
-    let groupSeason = dimSeason.group().reduceCount();
+    let groupSeason     = dimSeason.group().reduceCount();
     
-    let chart_III_A1 = dc.pieChart("#chart_III_A1");
+    let chart_III_A1    = dc.pieChart("#chart_III_A1");
     
     
     chart_III_A1
