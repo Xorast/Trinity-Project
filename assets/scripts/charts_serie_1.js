@@ -41,20 +41,19 @@ function makeGraph(error, inputData) {
 
     let chart_I_A1 = dc.compositeChart("#chart_I_A");
 
-    // TO BE SOLVED : BRUSH ON NOT WORKING
+    // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
     chart_I_A1
         .width(layoutChartMainWidth)
         .height(layoutChartMainHeight)
         .dimension(dimDate)
-        .elasticX(true)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear().domain([0, 2]))
         .yAxisLabel("Flow (M3/DAY)")
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
-        .brushOn(true)
         .mouseZoomable(true)
+        .brushOn(false)
         .compose([
             dc.lineChart(chart_I_A1)
                 .colors("blue")
@@ -75,22 +74,22 @@ function makeGraph(error, inputData) {
     
     let chart_I_B1 = dc.compositeChart("#chart_I_B1");
 
-    // TO BE SOLVED : BRUSH ON NOT WORKING
+    // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
+    // TO BE SOLVED : REVERSED BARCHART : Look into D3 : height of the bar VS y of the "attr"
     chart_I_B1
         .width(layoutChartMainWidth)
         .height(layoutChartMainHeight/2)
         .dimension(dimDateII)
-        .elasticX(true)
         .x(d3.time.scale().domain([minDateII, maxDateII]))
         .yAxisLabel("RAIN (MM)")
         .y(d3.scale.linear().domain([0, 50]))
         .rightYAxisLabel("ETP (Units)")
         .rightY(d3.scale.linear().domain([0, 10]))
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
-        .brushOn(true)
-        .mouseZoomable(true)
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
+        .mouseZoomable(true)
+        .brushOn(false)
         .compose([
             dc.barChart(chart_I_B1)
                 .colors("purple")
@@ -100,7 +99,7 @@ function makeGraph(error, inputData) {
                 .group(dimETP, "ETP dint")
                 .useRightYAxis(true)
         ])
-        .render()
+        .render();
     
 
     // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
@@ -146,7 +145,7 @@ function makeGraph(error, inputData) {
         .group(groupVolumeRain)
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
-        .xAxisLabel("Volume (M3)");
+        .xAxisLabel("Cumulated Rain (MM)");
     
 
     // CHART III.A1 - SEASONS PIE CHART ----------------------------------------    
