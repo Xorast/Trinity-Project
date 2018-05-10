@@ -27,13 +27,6 @@ function makeGraph(error, inputData) {
     // Maximum data to be processed. Create an alert / write it cleary somewhere for the user to see.
     inputData       = inputData.slice(0, 1095);
     
-    // DISPLAY & LAYOUT --------------------------------------------------------
-    
-    
-    
-    let layoutChartMainHeight   = 400;
-    let layoutChartMainWidth    = 1200;
-
     // FUNCTIONS ---------------------------------------------------------------
     
     // Enables ElasticX to work when zooming in another chart
@@ -60,8 +53,6 @@ function makeGraph(error, inputData) {
 
     // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
     chart_I_A1
-        .width(layoutChartMainWidth)
-        .height(layoutChartMainHeight)
         .dimension(dimDate)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear().domain([0, 1.5]))
@@ -98,8 +89,6 @@ function makeGraph(error, inputData) {
     // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
     // TO BE SOLVED : REVERSED BARCHART : Look into D3 : height of the bar VS y of the "attr"
     chart_I_B1
-        .width(layoutChartMainWidth)
-        .height(layoutChartMainHeight/2)
         .dimension(dimDateII)
         .x(d3.time.scale().domain([minDateII, maxDateII]))
         .yAxisLabel("RAIN (MM)")
@@ -125,9 +114,9 @@ function makeGraph(error, inputData) {
         .renderLabel(true)
         .xAxis().tickFormat(d3.time.format("%d-%B-%y"));
 
-    // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
+    // CHART II.A1 - FLOW BOX PLOT TOTAL ---------------------------------------    
 
-    let dimFlowTotal    = ndx.dimension(function(d) { return "Flow - Total" });
+    let dimFlowTotal        = ndx.dimension(function(d) { return "Flow - Total" });
     
     let groupFlowBoxTotal   = dimFlowTotal.group().reduce(
         function(p, v) {
@@ -145,26 +134,15 @@ function makeGraph(error, inputData) {
 
     let chart_II_A1         = dc.boxPlot("#chart_II_A1");
 
-    // CODE INITIAL -----------------------------------------------------------
-    // chart_II_A1
-    //     .width(250)
-    //     .height(500)
-    //     .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-    //     .y(d3.scale.linear().domain([-0.1, +1.5]))
-    //     .yAxisLabel("Flow (M3/DAY)")
-    //     .dimension(dimFlowTotal)
-    //     .group(groupFlowBoxTotal);
-    
-    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 2 -----------------------------
-        chart_II_A1
+    chart_II_A1
         .y(d3.scale.linear().domain([-0.1, +1.5]))
-        .yAxisLabel("Flow (M3/DAY)")
+        .yAxisLabel("FLOW (M3/DAY)")
         .dimension(dimFlowTotal)
         .group(groupFlowBoxTotal);
         
-    // READY FOR NEW DATA ######################################################
+    // CHART II.A2 - FLOW BOX PLOT - METHOD 1 ----------------------------------
     
-    let dimFlow1    = ndx.dimension(function(d) { return "Flow Total2" });
+    let dimFlow1        = ndx.dimension(function(d) { return "Base Flow Method 1" });
     
     let groupFlowBox1   = dimFlow1.group().reduce(
         function(p, v) {
@@ -180,92 +158,68 @@ function makeGraph(error, inputData) {
         }
     );
 
-    let chart_1234         = dc.boxPlot("#chart_1234");
+    let chart_II_A2         = dc.boxPlot("#chart_II_A2");
 
-    // CODE INITIAL -----------------------------------------------------------
-    // chart_1234
-    //     .width(250)
-    //     .height(500)
-    
-    // chart_1234
-    //     .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-    //     .y(d3.scale.linear().domain([-0.1, +1.5]))
-    //     .yAxisLabel("Flow_2 (M3/DAY)")
-    //     .dimension(dimFlow1)
-    //     .group(groupFlowBox1);
-
-    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 1 ------------------------------
-    
-    // chart_1234
-    //     .margins({ top: 10, right: 50, bottom: 30, left: 50 })
-    //     .y(d3.scale.linear().domain([-0.1, +1.5]))
-    //     .yAxisLabel("Flow_2 (M3/DAY)")
-    //     .dimension(dimFlow1)
-    //     .group(groupFlowBox1);
-    
-    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 2 ------------------------------
-    function layout (chartName) {
-        return chartName    .width(100)
-                            .height(100)
-                            .margins({ top: 10, right: 50, bottom: 30, left: 50 });
-    }
-
-    // var taille = layout(chart_1234);
-    // var taille = layout(chart_II_A1);
-    
-    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 3 ------------------------------
-    // 
-    // Automatiser : avec une boucle : mettre tous les charts dans un tableau
-    // Pour tous les charts dans ce tableau, appliquer
-
-    let myArray = [chart_1234,chart_II_A1];
-    
-    for (let i in myArray) {
-        var taille = layout(myArray[i]);
-    };
-    
-    // CHART REGISTERY
-    // console.log(dc.chartRegistry.all()[1].value);
-    
-    chart_1234
+    chart_II_A2
         .y(d3.scale.linear().domain([-0.1, +1.5]))
-        .yAxisLabel("Flow_2 (M3/DAY)")
+        .yAxisLabel("METHOD 1 - FLOW (M3/DAY)")
         .dimension(dimFlow1)
         .group(groupFlowBox1);
     
-    // #########################################################################
+    // CHART II.A3 - FLOW BOX PLOT - METHOD 2 ----------------------------------
     
+    let dimFlow2        = ndx.dimension(function(d) { return "Base Flow Method 2" });
+    
+    let groupFlowBox2   = dimFlow2.group().reduce(
+        function(p, v) {
+            p.push(v.q);
+            return p;
+        },
+        function(p, v) {
+            p.splice(p.indexOf(v.q), 1);
+            return p;
+        },
+        function() {
+            return [];
+        }
+    );
+
+    let chart_II_A3     = dc.boxPlot("#chart_II_A3");
+
+    chart_II_A3
+        .y(d3.scale.linear().domain([-0.1, +1.5]))
+        .yAxisLabel("METHOD 2 - FLOW (M3/DAY)")
+        .dimension(dimFlow2)
+        .group(groupFlowBox2);
+    
+    
+    // CHART II.A4 - FLOW BOX PLOT - METHOD 3 ----------------------------------
+        
+    let dimFlow3        = ndx.dimension(function(d) { return "Base Flow Method 3" });
+    
+    let groupFlowBox3   = dimFlow3.group().reduce(
+        function(p, v) {
+            p.push(v.q);
+            return p;
+        },
+        function(p, v) {
+            p.splice(p.indexOf(v.q), 1);
+            return p;
+        },
+        function() {
+            return [];
+        }
+    );
+
+    let chart_II_A4     = dc.boxPlot("#chart_II_A4");
+
+    chart_II_A4
+        .y(d3.scale.linear().domain([-0.1, +1.5]))
+        .yAxisLabel("METHOD 3 - FLOW (M3/DAY)")
+        .dimension(dimFlow3)
+        .group(groupFlowBox3);
         
     // CHART II.B1 - VOLUME - CUMULATIVE RAIN ----------------------------------  
-    
-    
-    
-    // TESTING : ADDING ANOTHER BAR FROM ANOTHER SERIE #########################
-    
-    // let dimFlowNameTest     = ndx.dimension(function(d) { return "Test - 80/100" });
-    // let FlowNameTestValue   = dimFlowNameTotal.group().reduceSum(function(d) { return (d.rain * 0.8) });
-    //  let groupVolumeRainTest     = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"))
-    
-    // let chart_II_B1         = dc.compositeChart("#chart_II_B1");
-    
-    // chart_II_B1
-    //     .width(250)
-    //     .height(250)
-    //     .dimension(dimFlowNameTotal)
-    //     .x(d3.scale.ordinal())
-    //     .xUnits(dc.units.ordinal)
-    //     .xAxisLabel("Cumulated Rain (MM)")
-    
-    //         .compose([
-    //             dc.barChart(chart_II_B1)
-    //                 .colors("green")
-    //                 .group(groupVolumeRain, "groupVolumeRain"),
-    //             dc.barChart(chart_II_B1)
-    //                 .colors("red")
-    //                 .group(FlowNameTestValue, "FlowNameTestValue"),
-    //         ]);
-    
-    // TESTING  END ############################################################
     
     let groupVolumeRain     = dimFlowTotal.group().reduceSum(dc.pluck("rain"));
     let chart_II_B1         = dc.barChart("#chart_II_B1");
@@ -290,7 +244,6 @@ function makeGraph(error, inputData) {
             case (d.date.getMonth() === 1 || d.date.getMonth() === 2 || d.date.getMonth() === 3 ):
                 
                 return "SPRING"; break;  
-            
             
             case (d.date.getMonth() === 4 || d.date.getMonth() === 5 || d.date.getMonth() === 6 ):
                 
@@ -321,7 +274,35 @@ function makeGraph(error, inputData) {
         .dimension(dimSeason)
         .group(groupSeason);
         
-    // -------------------------------------------------------------------------
-    // END OF MAKEGRAPH
+     
+    // DISPLAY & LAYOUT --------------------------------------------------------
+    // CHART - SERIE I ---------------------------------------------------------
+    
+    let arrayChart_I = [chart_I_A1,chart_I_B1];
+    
+    function layoutChart_I (chartName) {
+        return chartName    .width(1200)
+                            .height(400);
+    }
+
+    for (let i in arrayChart_I) {
+        var taille = layoutChart_I(arrayChart_I[i]);
+    };
+    
+    // CHART - SERIE II --------------------------------------------------------
+    let arrayChart_II = [chart_II_A1,chart_II_A2,chart_II_A3,chart_II_A4];
+    
+    function layoutChart_II (chartName) {
+        return chartName    .width(250)
+                            .height(250)
+                            .margins({ top: 10, right: 50, bottom: 30, left: 50 });
+    }
+
+    for (let i in arrayChart_II) {
+        var taille = layoutChart_II(arrayChart_II[i]);
+    };
+
+    
+    // END OF MAKEGRAPH --------------------------------------------------------
     dc.renderAll();
 };
