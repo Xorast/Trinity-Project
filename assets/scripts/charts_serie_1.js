@@ -6,11 +6,13 @@ queue()
     .await(makeGraph);
 
 // CHARTS ----------------------------------------------------------------------
+
 function makeGraph(error, inputData) {
 
     let ndx         = crossfilter(inputData);
 
     // FORMAT - STRING TO DATE & NUMBERS ---------------------------------------
+    
     let parseDate   = d3.time.format("%Y-%m-%d").parse;
 
     inputData.forEach(function(d) {
@@ -26,6 +28,8 @@ function makeGraph(error, inputData) {
     inputData       = inputData.slice(0, 1095);
     
     // DISPLAY & LAYOUT --------------------------------------------------------
+    
+    
     
     let layoutChartMainHeight   = 400;
     let layoutChartMainWidth    = 1200;
@@ -46,7 +50,6 @@ function makeGraph(error, inputData) {
     // CHART I.A1 - BASE FLOW LINECHART ----------------------------------------
 
     let dimDate         = ndx.dimension(dc.pluck("date"));
-
     var minDate         = dimDate.bottom(1)[0].date;
     var maxDate         = dimDate.top(1)[0].date;
 
@@ -75,20 +78,20 @@ function makeGraph(error, inputData) {
                 .group(groupFilteredTotalFlow, "Flow - Total"),
         ])
         .render()
+        .renderLabel(true)
         .xAxis().tickFormat(d3.time.format("%d-%B-%y"));
     
     // CHART I.B1 - RAIN & ETP -------------------------------------------------
     
-    let dimDateII       = ndx.dimension(dc.pluck("date"));
-    
-        var minDateII   = dimDateII.bottom(1)[0].date;
-        var maxDateII   = dimDateII.top(1)[0].date;
+    let dimDateII         = ndx.dimension(dc.pluck("date"));
+    var minDateII         = dimDateII.bottom(1)[0].date;
+    var maxDateII         = dimDateII.top(1)[0].date;
         
     let groupRain         = dimDateII.group().reduceSum(dc.pluck("rain"));
     let groupFilteredRain = remove_empty_bins(groupRain);
 
-    let groupETP         = dimDateII.group().reduceSum(dc.pluck("ETP_dint"));
-    let groupFilteredETP = remove_empty_bins(groupETP);
+    let groupETP          = dimDateII.group().reduceSum(dc.pluck("ETP_dint"));
+    let groupFilteredETP  = remove_empty_bins(groupETP);
     
     let chart_I_B1 = dc.compositeChart("#chart_I_B1");
 
@@ -119,14 +122,14 @@ function makeGraph(error, inputData) {
                 .useRightYAxis(true)
         ])
         .render()
+        .renderLabel(true)
         .xAxis().tickFormat(d3.time.format("%d-%B-%y"));
-    
 
     // CHART II.A1 - BASE FLOW BOX PLOT ----------------------------------------    
 
-    let dimFlowNameTotal    = ndx.dimension(function(d) { return "Flow - Total" });
+    let dimFlowTotal    = ndx.dimension(function(d) { return "Flow - Total" });
     
-    let groupFlowBoxTotal   = dimFlowNameTotal.group().reduce(
+    let groupFlowBoxTotal   = dimFlowTotal.group().reduce(
         function(p, v) {
             p.push(v.q);
             return p;
@@ -142,31 +145,141 @@ function makeGraph(error, inputData) {
 
     let chart_II_A1         = dc.boxPlot("#chart_II_A1");
 
-    chart_II_A1
-        .width(250)
-        .height(500)
-        .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+    // CODE INITIAL -----------------------------------------------------------
+    // chart_II_A1
+    //     .width(250)
+    //     .height(500)
+    //     .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+    //     .y(d3.scale.linear().domain([-0.1, +1.5]))
+    //     .yAxisLabel("Flow (M3/DAY)")
+    //     .dimension(dimFlowTotal)
+    //     .group(groupFlowBoxTotal);
+    
+    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 2 -----------------------------
+        chart_II_A1
         .y(d3.scale.linear().domain([-0.1, +1.5]))
         .yAxisLabel("Flow (M3/DAY)")
-        .dimension(dimFlowNameTotal)
+        .dimension(dimFlowTotal)
         .group(groupFlowBoxTotal);
+        
+    // READY FOR NEW DATA ######################################################
+    
+    let dimFlow1    = ndx.dimension(function(d) { return "Flow Total2" });
+    
+    let groupFlowBox1   = dimFlow1.group().reduce(
+        function(p, v) {
+            p.push(v.q);
+            return p;
+        },
+        function(p, v) {
+            p.splice(p.indexOf(v.q), 1);
+            return p;
+        },
+        function() {
+            return [];
+        }
+    );
+
+    let chart_1234         = dc.boxPlot("#chart_1234");
+
+    // CODE INITIAL -----------------------------------------------------------
+    // chart_1234
+    //     .width(250)
+    //     .height(500)
+    
+    // chart_1234
+    //     .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+    //     .y(d3.scale.linear().domain([-0.1, +1.5]))
+    //     .yAxisLabel("Flow_2 (M3/DAY)")
+    //     .dimension(dimFlow1)
+    //     .group(groupFlowBox1);
+
+    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 1 ------------------------------
+    
+    // chart_1234
+    //     .margins({ top: 10, right: 50, bottom: 30, left: 50 })
+    //     .y(d3.scale.linear().domain([-0.1, +1.5]))
+    //     .yAxisLabel("Flow_2 (M3/DAY)")
+    //     .dimension(dimFlow1)
+    //     .group(groupFlowBox1);
+    
+    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 2 ------------------------------
+    function layout (chartName) {
+        return chartName    .width(100)
+                            .height(100)
+                            .margins({ top: 10, right: 50, bottom: 30, left: 50 });
+    }
+
+    // var taille = layout(chart_1234);
+    // var taille = layout(chart_II_A1);
+    
+    // DETACHEMENT DE LA MISE EN FORME ! PARTIE 3 ------------------------------
+    // 
+    // Automatiser : avec une boucle : mettre tous les charts dans un tableau
+    // Pour tous les charts dans ce tableau, appliquer
+
+    let myArray = [chart_1234,chart_II_A1];
+    
+    for (let i in myArray) {
+        var taille = layout(myArray[i]);
+    };
+    
+    // CHART REGISTERY
+    // console.log(dc.chartRegistry.all()[1].value);
+    
+    chart_1234
+        .y(d3.scale.linear().domain([-0.1, +1.5]))
+        .yAxisLabel("Flow_2 (M3/DAY)")
+        .dimension(dimFlow1)
+        .group(groupFlowBox1);
+    
+    // #########################################################################
     
         
     // CHART II.B1 - VOLUME - CUMULATIVE RAIN ----------------------------------  
     
-    let groupVolumeRain     = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"));
     
+    
+    // TESTING : ADDING ANOTHER BAR FROM ANOTHER SERIE #########################
+    
+    // let dimFlowNameTest     = ndx.dimension(function(d) { return "Test - 80/100" });
+    // let FlowNameTestValue   = dimFlowNameTotal.group().reduceSum(function(d) { return (d.rain * 0.8) });
+    //  let groupVolumeRainTest     = dimFlowNameTotal.group().reduceSum(dc.pluck("rain"))
+    
+    // let chart_II_B1         = dc.compositeChart("#chart_II_B1");
+    
+    // chart_II_B1
+    //     .width(250)
+    //     .height(250)
+    //     .dimension(dimFlowNameTotal)
+    //     .x(d3.scale.ordinal())
+    //     .xUnits(dc.units.ordinal)
+    //     .xAxisLabel("Cumulated Rain (MM)")
+    
+    //         .compose([
+    //             dc.barChart(chart_II_B1)
+    //                 .colors("green")
+    //                 .group(groupVolumeRain, "groupVolumeRain"),
+    //             dc.barChart(chart_II_B1)
+    //                 .colors("red")
+    //                 .group(FlowNameTestValue, "FlowNameTestValue"),
+    //         ]);
+    
+    // TESTING  END ############################################################
+    
+    let groupVolumeRain     = dimFlowTotal.group().reduceSum(dc.pluck("rain"));
     let chart_II_B1         = dc.barChart("#chart_II_B1");
     
     chart_II_B1
         .width(250)
         .height(250)
-        .dimension(dimFlowNameTotal)
+        .dimension(dimFlowTotal)
         .group(groupVolumeRain)
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Cumulated Rain (MM)");
     
+   
 
     // CHART III.A1 - SEASONS PIE CHART ----------------------------------------    
 
@@ -201,7 +314,6 @@ function makeGraph(error, inputData) {
     let groupSeason     = dimSeason.group().reduceCount();
     
     let chart_III_A1    = dc.pieChart("#chart_III_A1");
-    
     
     chart_III_A1
         .height(330)
