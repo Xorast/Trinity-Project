@@ -7,6 +7,11 @@ queue()
 
 // CHARTS ----------------------------------------------------------------------
 
+var chart_I_A1 = dc.compositeChart("#chart_I_A");
+var chart_I_B1 = dc.compositeChart("#chart_I_B1");
+
+// let parseDate   = d3.time.format("%Y-%m-%d").parse;
+
 function makeGraph(error, inputData) {
 
     let ndx         = crossfilter(inputData);
@@ -49,7 +54,8 @@ function makeGraph(error, inputData) {
     let groupTotalFlow  = dimDate.group().reduceSum(dc.pluck("q"));
     let groupFilteredTotalFlow = remove_empty_bins(groupTotalFlow);
 
-    let chart_I_A1      = dc.compositeChart("#chart_I_A");
+    // let chart_I_A1      = dc.compositeChart("#chart_I_A");
+   
 
     // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
     chart_I_A1
@@ -92,7 +98,8 @@ function makeGraph(error, inputData) {
     let groupETP          = dimDateII.group().reduceSum(dc.pluck("ETP_dint"));
     let groupFilteredETP  = remove_empty_bins(groupETP);
     
-    let chart_I_B1 = dc.compositeChart("#chart_I_B1");
+    // let chart_I_B1 = dc.compositeChart("#chart_I_B1");
+    
 
     // TO BE SOLVED : BRUSH / ZOOM NOT WORKING
     // TO BE SOLVED : REVERSED BARCHART : Look into D3 : height of the bar VS y of the "attr"
@@ -317,30 +324,47 @@ function makeGraph(error, inputData) {
     };
 
 
-    // TESTING -----------------------------------------------------------------
+    // TESTING DATE FILTERING --------------------------------------------------
     
-    let dateStart   = parseDate("2010-04-01");
-    let dateEnd     = parseDate("2010-08-01");
+    // let dateStart   = parseDate("2010-04-01");
+    // let dateEnd     = parseDate("2010-08-01");
     
-    chart_I_B1
-        .filter(null)
-        .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
+    // chart_I_B1
+    //     .filter(null)
+    //     .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
         
-    chart_I_A1
-        .filter(null)
-        .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
+    // chart_I_A1
+    //     .filter(null)
+    //     .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
     
+
     
-    // dc.redrawAll();
-    
-    
+    // // dc.redrawAll(); 
     
     // END OF MAKEGRAPH --------------------------------------------------------
     dc.renderAll();
 };
 
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
 function resetAll() {
     dc.filterAll();
     dc.renderAll();
 }
+    
 
+function dateRange() {
+    
+    let dateStart   = parseDate("2010-04-01");
+    let dateEnd     = parseDate("2010-08-01");
+    
+    chart_I_B1
+        
+        .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
+        // paymentsByTotal.filterRange([100, 200]) Example
+        
+    chart_I_A1
+        
+        .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
+}
