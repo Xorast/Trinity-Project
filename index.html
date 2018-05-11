@@ -32,6 +32,7 @@
     <!-- Charts -->
     <!-- Serie 1 -->
     <script src="assets/scripts/charts_serie_1.js"></script>
+    <script src="assets/scripts/charts_draft.js"></script>
     <!-- Serie 2 -->
     <!--<script src="____.js"></script>-->
     
@@ -58,11 +59,34 @@
     <!------------------------------------------------------------------------->
     <!------------------------------------------------------------------------->
     <section>
-
+    
         <div class="row">
             <p>Work in process.</p>
             <p>The charts are interactive : you can zoom in (when it works...!) or click on them.</p>
         </div>
+        
+        <!--------------------------------------------------------------------->
+        <!-- FORM TO BE IMPLEMENTED. WAITING FOR HAVING THE BACKEND KNOWLEDGE-->
+        
+        <form id="dataForm">
+            <input name="Data" type="file" />
+        <button id="dataFileSubmit" type="submit">UPLOAD</button>
+        </form>
+        
+        <!------------------------------------------------------------------------->
+        
+        <!--<span>-->
+        <!--<a href="javascript:-->
+        <!--            dc.filterAll(); -->
+        <!--            "-->
+        <!--    >Reset All</a>-->
+        <!--</span>-->
+        <button id="resetAll" onclick="resetAll()">Reset All</button>
+        <!--<button id="resetAll" onclick="makeGraph()">Reset All</button>-->
+        
+        <!------------------------------------------------------------------------->
+        
+        
         
         <div class="row">
             <p><strong>Chart_III_A1 - [Data distribution within seasons]</strong></p>

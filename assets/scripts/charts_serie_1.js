@@ -42,7 +42,7 @@ function makeGraph(error, inputData) {
     
     // CHART I.A1 - BASE FLOW LINECHART ----------------------------------------
 
-    let dimDate         = ndx.dimension(dc.pluck("date"));
+    let dimDate         = ndx.dimension(dc.pluck("date")); // v["date"]
     var minDate         = dimDate.bottom(1)[0].date;
     var maxDate         = dimDate.top(1)[0].date;
 
@@ -59,10 +59,15 @@ function makeGraph(error, inputData) {
         
         .yAxisLabel("Flow (M3/DAY)")
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
+        
+        .elasticX(true)
+
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
+
         .mouseZoomable(true)
         .brushOn(false)
+        
         .compose([
             dc.lineChart(chart_I_A1)
                 .colors("blue")
@@ -71,6 +76,9 @@ function makeGraph(error, inputData) {
         .render()
         .renderLabel(true)
         .xAxis().tickFormat(d3.time.format("%d-%B-%y"));
+        
+
+    
     
     // CHART I.B1 - RAIN & ETP -------------------------------------------------
     
@@ -91,16 +99,22 @@ function makeGraph(error, inputData) {
     chart_I_B1
         .dimension(dimDateII)
         .x(d3.time.scale().domain([minDateII, maxDateII]))
-        .yAxisLabel("RAIN (MM)")
         .y(d3.scale.linear().domain([0, 50]))
+        
+        .yAxisLabel("RAIN (MM)")
+        .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
+        
         .elasticX(true)
+        
         .rightYAxisLabel("ETP (Units)")
         .rightY(d3.scale.linear().domain([0, 10]))
-        .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
+        
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
+        
         .mouseZoomable(false)
         .brushOn(false)
+        
         .compose([
             dc.barChart(chart_I_B1)
                 .colors("purple")
@@ -302,7 +316,31 @@ function makeGraph(error, inputData) {
         var taille = layoutChart_II(arrayChart_II[i]);
     };
 
+
+    // TESTING -----------------------------------------------------------------
+    
+    let dateStart   = parseDate("2010-04-01");
+    let dateEnd     = parseDate("2010-08-01");
+    
+    chart_I_B1
+        .filter(null)
+        .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
+        
+    chart_I_A1
+        .filter(null)
+        .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
+    
+    
+    // dc.redrawAll();
+    
+    
     
     // END OF MAKEGRAPH --------------------------------------------------------
     dc.renderAll();
 };
+
+function resetAll() {
+    dc.filterAll();
+    dc.renderAll();
+}
+

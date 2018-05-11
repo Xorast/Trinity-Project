@@ -1,3 +1,17 @@
+    
+    
+ 
+    //   function resetAll() {
+        
+    //     chart_I_A1
+    //     .mouseZoomable(false);
+        
+    //     chart_I_A1
+    //     .mouseZoomable(true);
+        
+    //     dc.filterAll(); 
+    //     dc.renderAll();
+    // }
     // CHART I.A - BASE FLOW 
     
     // let dimDate = ndx.dimension(dc.pluck("date"));
