@@ -2,7 +2,7 @@
 
 // QUEUEING --------------------------------------------------------------------
 queue()
-    .defer(d3.csv, "assets/data/input_data_example_a.csv")
+    .defer(d3.csv, "assets/data/input/input_data_example_a.csv")
     .await(makeGraph);
 
 // CHARTS ----------------------------------------------------------------------
@@ -66,13 +66,13 @@ function makeGraph(error, inputData) {
         .yAxisLabel("Flow (M3/DAY)")
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         
-        .elasticX(true)
+        
 
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
 
         .mouseZoomable(true)
-        .brushOn(false)
+        .brushOn(true)
         
         .compose([
             dc.lineChart(chart_I_A1)
