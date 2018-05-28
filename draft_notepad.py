@@ -33,3 +33,9 @@
 #     writer.writerow({'rain': 'testing', 'date': 'testings'})
 #     writer.writerow({'rain': 'Ltesting', 'date': 'testing'})
 #     writer.writerow({'rain': 'Wondtesting', 'date': 'testing'})
+
+test_list = ['bonjour','merci','hello','thank you','au-revoir']
+
+for element in test_list:
+    print(element - 1, element)
+    
