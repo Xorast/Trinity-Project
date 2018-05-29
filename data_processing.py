@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, url_for, render_template, send_file
 from werkzeug.utils import secure_filename
 import csv        
 
@@ -25,6 +25,8 @@ a       = 0.75
 BFI     = 0.25
 
 # UPLOADING THE INPUT FILE -----------------------------------------------------
+# code coming from the flask documentation : 
+# http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
 
 app.config['upload_folder']         = upload_folder
 app.config['max_content_lenght']    = 2 * 1024 * 1024 #2 megabytes
@@ -51,7 +53,16 @@ def upload_file():
             return redirect('/')
     return render_template("index.html")
 
-# DATA FORMAT
+# SENDING THE OUTPUT FILE ------------------------------------------------------
+# Need to create a feedback
+@app.route('/getCSVOutputFile')
+def send_output_csv():
+    return send_file(output_file_abs_path,
+                     mimetype='text/csv',
+                     attachment_filename='test.csv',
+                     as_attachment=True)
+
+# DATA FORMAT ------------------------------------------------------------------
 
 def data_cleaning(value_as_string, dc_):
     if '.' in value_as_string :
@@ -84,6 +95,7 @@ with open(input_file_abs_path) as input_csvfile, open(output_file_abs_path, 'w+'
     dc_peff      = 4 
     dc_ETP_dint  = 1 
     
+    # initialization required for the first "baseflow_1" value
     first_row = next(reader)
     writer.writerow({
         'row'       :   first_row['row'],
@@ -93,6 +105,7 @@ with open(input_file_abs_path) as input_csvfile, open(output_file_abs_path, 'w+'
         'temp'      :   data_cleaning(first_row['temp'],dc_temp),
         'ETP_dint'  :   data_cleaning(first_row['ETP_dint'],dc_ETP_dint),
         'peff'      :   data_cleaning(first_row['peff'],dc_peff),
+        # baseflow_1 taken equal to the first "q"
         'baseflow_1':   data_cleaning(first_row['q'],dc_q),
         # 'baseflow_2':   '',
         # 'baseflow_3':   '',    

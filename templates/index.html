@@ -39,15 +39,18 @@
         </div>
         
         <!--------------------------------------------------------------------->
-        <!-- FORM TO BE IMPLEMENTED. WAITING FOR HAVING THE BACKEND KNOWLEDGE-->
-        
+        <h1>Upload your input file :</h1>
         <form method=post enctype=multipart/form-data action='/'>
             <input type=file name=file>
             <input type=submit value=Upload>
         </form>
-        
+
+        <h1>Download your output file (.csv) :</h1>
+        <p>The file will be directly downloaded in your "download" folder</p>
+        <a href="/getCSVOutputFile">Download</a>
         <!------------------------------------------------------------------------->
         
+        <h1>Reset all filters : </h1>
         <!--<span>-->
         <!--<a href="javascript:-->
         <!--            dc.filterAll(); -->

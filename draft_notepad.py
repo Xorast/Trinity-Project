@@ -65,11 +65,23 @@
 #     value_as_string = value_as_string.split('.',nb_dec)[0] + '.' + value_as_string.split('.',nb_dec)[1][:nb_dec]
 # print(value_as_string)
 
-a = 10
+# a = 10
 
-def test():
-    return a
+# def test():
+#     return a
     
-print(test())
+# print(test())
 
-print('0.123456'.split('.',1))
+# print('0.123456'.split('.',1))
+
+# Var from flask to java, though HTML :
+Specify a data attribute like so:
+
+<div id="mydiv" data-geocode="{{ geocode|tojson }}">...</div>
+Then access it in a static JavaScript file like so:
+
+// Raw JavaScript
+var geocode = JSON.parse(document.getElementById("mydiv").dataset.geocode);
+
+// jQuery
+var geocode = JSON.parse($("#mydiv").data("geocode"));
