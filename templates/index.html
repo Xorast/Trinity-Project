@@ -2,27 +2,21 @@
 <html lang="en">
 <head>
     
-    <!-- META -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <!--CSS -->
+    <!-- CSS -->
     <!--<link rel="stylesheet" href="assets/css/reset.css" type="text/css" />-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />-->
     <!--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" type="text/css" />-->
+    <!--<link rel="stylesheet" href="css/style.css" type="text/css" />-->
     
-   
-    
-    
-    <!-- FEATURED -->
     <title>Trinity - Baseflow</title>
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
 </head>
-<!----------------------------------------------------------------------------->
 <!----------------------------------------------------------------------------->
 <body>
     
@@ -37,7 +31,6 @@
         
     </header>
     <!------------------------------------------------------------------------->
-    <!------------------------------------------------------------------------->
     <section>
     
         <div class="row">
@@ -48,9 +41,9 @@
         <!--------------------------------------------------------------------->
         <!-- FORM TO BE IMPLEMENTED. WAITING FOR HAVING THE BACKEND KNOWLEDGE-->
         
-        <form id="dataForm">
-            <input name="Data" type="file" />
-        <button id="dataFileSubmit" type="submit">UPLOAD</button>
+        <form method=post enctype=multipart/form-data action='/'>
+            <input type=file name=file>
+            <input type=submit value=Upload>
         </form>
         
         <!------------------------------------------------------------------------->
@@ -100,16 +93,11 @@
         
     </section>
     <!------------------------------------------------------------------------->
-    <!------------------------------------------------------------------------->
     <footer>
         
     </footer>
-    <!------------------------------------------------------------------------->
     <!--END OF CONTAINER ------------------------------------------------------>
     </div>
-    
-    
-    
     
     
      <!-- SCRIPTS -->
@@ -129,12 +117,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js"></script>
     <!-- Charts -->
     <!-- Serie 1 -->
-    <script src="assets/scripts/charts_serie_1.js"></script>
-    <script src="assets/scripts/charts_draft.js"></script>
+    <script src="../../static/js/charts_serie_1.js"></script> 
+    <!--<script src= "{{ url_for('static', filename = 'charts_serie_1.js') }}"></script>-->
     <!-- Serie 2 -->
     <!--<script src="____.js"></script>-->
     
 </body>
-<!----------------------------------------------------------------------------->
 <!----------------------------------------------------------------------------->
 </html>

@@ -2,7 +2,7 @@
 
 // QUEUEING --------------------------------------------------------------------
 queue()
-    .defer(d3.csv, "assets/data/input/input_data_example_a.csv")
+    .defer(d3.csv, "/input_data_example_a.csv")
     .await(makeGraph);
 
 // CHARTS ----------------------------------------------------------------------
