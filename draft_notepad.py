@@ -71,17 +71,28 @@
 #     return a
     
 # print(test())
+# # 
+# # print('0.123456'.split('.',1))
 
-# print('0.123456'.split('.',1))
+# # Var from flask to java, though HTML :
+# Specify a data attribute like so:
 
-# Var from flask to java, though HTML :
-Specify a data attribute like so:
+# <div id="mydiv" data-geocode="{{ geocode|tojson }}">...</div>
+# Then access it in a static JavaScript file like so:
 
-<div id="mydiv" data-geocode="{{ geocode|tojson }}">...</div>
-Then access it in a static JavaScript file like so:
+# // Raw JavaScript
+# var geocode = JSON.parse(document.getElementById("mydiv").dataset.geocode);
 
-// Raw JavaScript
-var geocode = JSON.parse(document.getElementById("mydiv").dataset.geocode);
+# // jQuery
+# var geocode = JSON.parse($("#mydiv").data("geocode"));
 
-// jQuery
-var geocode = JSON.parse($("#mydiv").data("geocode"));
+x = "Bonjour"
+
+def english(y):
+    y = "Hello !"
+    return y
+
+print(x)
+english(x)
+print(x)
+    

@@ -14,7 +14,7 @@
     <!--<link rel="stylesheet" href="css/style.css" type="text/css" />-->
     
     <title>Trinity - Baseflow</title>
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="static/images/favicon.ico">
 
 </head>
 <!----------------------------------------------------------------------------->
@@ -42,12 +42,18 @@
         <h1>Upload your input file :</h1>
         <form method=post enctype=multipart/form-data action='/'>
             <input type=file name=file>
-            <input type=submit value=Upload>
+            <input type=text name=output_filename placeholder='Output filename'><br>
+            <input type=submit value=Send!>
         </form>
 
         <h1>Download your output file (.csv) :</h1>
         <p>The file will be directly downloaded in your "download" folder</p>
-        <a href="/getCSVOutputFile">Download</a>
+        <a href="/DownloadOutputFile">Download</a>
+        
+        
+        <h1>Archive your data online :</h1>
+        <p>The file will be archived on an online Mongo Database</p>
+        <a href="/archiveDataOnMongoDatabase">Archive</a>
         <!------------------------------------------------------------------------->
         
         <h1>Reset all filters : </h1>

@@ -3,6 +3,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template, sen
 from werkzeug.utils import secure_filename
 import csv        
 
+
 app = Flask(__name__)
            
 
@@ -17,6 +18,7 @@ upload_folder           = relative_path('assets/data/input/')
 allowed_extensions      = set(['csv'])
 input_file_abs_path     = relative_path('assets/data/input/input_data_example_a.csv')
 output_file_abs_path    = relative_path('assets/data/output/test.csv')
+
 
 # input_fields_name     = ['row','date','q','rain','temp','ETP_dint','peff']
 output_fields_name      = ['row','date','q','rain','temp','ETP_dint','peff','baseflow_1','baseflow_2','baseflow_3']
@@ -61,14 +63,7 @@ def send_output_csv():
                      mimetype='text/csv',
                      attachment_filename='test.csv',
                      as_attachment=True)
-
-# DATA FORMAT ------------------------------------------------------------------
-
-def data_cleaning(value_as_string, dc_):
-    if '.' in value_as_string :
-        value_as_string = value_as_string.split('.',1)[0] + '.' + value_as_string.split('.',1)[1][:dc_]
-    return value_as_string
-    
+                     
 # BASEFLOW CALCULATION ---------------------------------------------------------
 # MODEL 1 - Eckhardt filter ---------------------------------------------------- 
 
@@ -78,6 +73,13 @@ def baseflow_model_1(q, previous_q, a, BFI, dc_q):
     previous_q  = float(previous_q)
     
     return str(round(((1 - BFI)*a*previous_q  +  (1 - a)*BFI*q) / (1 - a*BFI), dc_q))
+    
+# DATA FORMAT ------------------------------------------------------------------
+
+def data_cleaning(value_as_string, dc_):
+    if '.' in value_as_string :
+        value_as_string = value_as_string.split('.',1)[0] + '.' + value_as_string.split('.',1)[1][:dc_]
+    return value_as_string
 
 # MAIN FUNCTION : MAKING OF THE OUTPUT FILE ------------------------------------
 
