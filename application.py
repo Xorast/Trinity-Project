@@ -1,5 +1,6 @@
 import os
 from flask          import Flask, flash, request, redirect, url_for, render_template, send_file
+from pymsgbox       import *
 from data_input     import file_uploading
 from data_output    import processing_data
 from data_tools     import relative_path
@@ -8,7 +9,8 @@ from archive        import push_to_online_mongo_db
 # SETTINGS ---------------------------------------------------------------------
 # INPUT DATA
 upload_folder           = relative_path('static/data/data_input')
-dlload_folder           = relative_path('static/data/data_output')
+output_folder           = 'static/data/data_output'
+dlload_folder           = relative_path(output_folder)
 allowed_extensions      = set(['csv'])
 max_file_size           = 2 * 1024 * 1024 #2 megabytes
 
@@ -21,6 +23,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    
     if request.method == 'POST':
         
         file_uploading(app, upload_folder, allowed_extensions, max_file_size)
@@ -28,8 +31,15 @@ def upload_file():
         app.config['output_filename']     = request.form['output_filename'] + '.csv'
         app.config['output_full_path']    = os.path.join(dlload_folder, app.config['output_filename'])
         processing_data(app.config['input_full_path'], app.config['output_full_path'], output_fields_name)
+   
+        return redirect('/charts')
         
-    return render_template("index.html")
+    return render_template('index.html')
+
+@app.route('/charts')
+def displaying_charts():
+    data_source = output_folder + "/" + app.config['output_filename']
+    return render_template("charts.html", data_source = data_source)
 
 # Need to create a feedback
 @app.route('/DownloadOutputFile') 

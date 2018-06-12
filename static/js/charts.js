@@ -1,8 +1,8 @@
-// CHARTS_SERIE_1
+// CHARTS
 
 // QUEUEING --------------------------------------------------------------------
 queue()
-    .defer(d3.csv, "static/input_data_example_a.csv")
+    .defer(d3.csv, data_source)
     .await(makeGraph);
 
 // CHARTS ----------------------------------------------------------------------
@@ -362,7 +362,7 @@ function dateRange() {
     chart_I_B1
         
         .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
-        // paymentsByTotal.filterRange([100, 200]) Example
+        // Example : paymentsByTotal.filterRange([100, 200]) 
         
     chart_I_A1
         

@@ -7,130 +7,46 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- CSS -->
-    <!--<link rel="stylesheet" href="assets/css/reset.css" type="text/css" />-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" type="text/css"></link> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
-    <!--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">-->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" type="text/css" />-->
-    <!--<link rel="stylesheet" href="css/style.css" type="text/css" />-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"  integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css"></link> 
     
-    <title>Trinity - Baseflow</title>
+    <title>TCD - Baseflow</title>
     <link rel="shortcut icon" href="static/images/favicon.ico">
 
 </head>
-<!----------------------------------------------------------------------------->
 <body>
     
     <div class="container">
-    <!------------------------------------------------------------------------->
     <header>
         
         <div class="row">
-            <h1>PROJECT TRINITY</h1>
-            <h2>Baseflow & Statistics</h2>
+            <h1>TRINITY COLLEGE DUBLIN</h1>
+            <h2>BASEFLOW DETERMINATION</h2>
+            <h3>Introduction</h3>
         </div>
         
     </header>
-    <!------------------------------------------------------------------------->
     <section>
     
-        <div class="row">
-            <p>Work in process.</p>
-            <p>The charts are interactive : you can zoom in (when it works...!) or click on them.</p>
-        </div>
-        
-        <!--------------------------------------------------------------------->
         <h1>Upload your input file :</h1>
         <form method=post enctype=multipart/form-data action='/'>
             <input type=file name=file>
             <input type=text name=output_filename placeholder='Output filename'><br>
             <input type=submit value=Send!>
         </form>
-
-        <h1>Download your output file (.csv) :</h1>
-        <p>The file will be directly downloaded in your "download" folder</p>
-        <a href="/DownloadOutputFile">Download</a>
-        
-        
-        <h1>Archive your data online :</h1>
-        <p>The file will be archived on an online Mongo Database</p>
-        <a href="/archiveDataOnMongoDatabase">Archive</a>
-        <!------------------------------------------------------------------------->
-        
-        <h1>Reset all filters : </h1>
-        <!--<span>-->
-        <!--<a href="javascript:-->
-        <!--            dc.filterAll(); -->
-        <!--            "-->
-        <!--    >Reset All</a>-->
-        <!--</span>-->
-        <button id="resetAll" onclick="resetAll()">Reset All</button>
-        <button id="dateRange" onclick="dateRange()">dateRange</button>
-        <!--<button id="resetAll" onclick="makeGraph()">Reset All</button>-->
-        
-        <!------------------------------------------------------------------------->
-        
-        
-        
-        <div class="row">
-            <p><strong>Chart_III_A1 - [Data distribution within seasons]</strong></p>
-            <div id="chart_III_A1"></div>
-        </div>
-        
-        <div class="row">
-            <p><strong>Chart_I_A1 - [Baseflow & Rain]</strong></p>
-            <div id="chart_I_A"></div>
-        </div>
-        
-        <div class="row">
-            <p><strong>Chart_I_B1 - [Rain & ETP]</strong></p>
-            <div id="chart_I_B1"></div>
-        </div>
-        
-        <div class="row">
-            <p><strong>Chart_II_A1 - [Flow distribution]</strong></p>
-            <div id="chart_II_A1"></div>
-            <div id="chart_II_A2"></div>
-            <div id="chart_II_A3"></div>
-            <div id="chart_II_A4"></div>
-        </div>
-        
-        <div class="row">
-            <p><strong>Chart_II_B1 - [Cumulative rain]</strong></p>
-            <div id="chart_II_B1"></div>
-        </div>
-        
         
     </section>
-    <!------------------------------------------------------------------------->
     <footer>
         
     </footer>
-    <!--END OF CONTAINER ------------------------------------------------------>
-    </div>
-    
+    </div> <!--END OF CONTAINER -->
     
      <!-- SCRIPTS -->
     <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
-    
-    <!-- CHARTS SCRIPTS -->
-    <!-- D3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
-    <!-- Cross Filter -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-    <!-- DC -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
-    <!-- Queue -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js"></script>
-    <!-- Charts -->
-    <!-- Serie 1 -->
-    <script src="{{ url_for('static', filename='js/charts_serie_1.js') }}"></script> 
-    <!--<script src= "{{ url_for('static', filename = 'charts_serie_1.js') }}"></script>-->
-    <!-- Serie 2 -->
-    <!--<script src="____.js"></script>-->
-    
 </body>
-<!----------------------------------------------------------------------------->
 </html>
