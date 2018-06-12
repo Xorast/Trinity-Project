@@ -1,6 +1,5 @@
 import os
 from flask          import Flask, flash, request, redirect, url_for, render_template, send_file
-from pymsgbox       import *
 from data_input     import file_uploading
 from data_output    import processing_data
 from data_tools     import relative_path
