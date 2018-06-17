@@ -28,7 +28,7 @@ def file_uploading(app, upload_folder, allowed_extensions, max_file_size):
         app.config['UPLOAD_FOLDER']          = upload_folder
         filename                             = secure_filename(file.filename)
         # Using the app for storing the filename variable
-        app.config['input_filename']        = filename
+        app.config['input_filename']         = filename
         app.config['input_full_path']        = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(app.config['input_full_path'])
         return redirect('/')
