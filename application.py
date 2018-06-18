@@ -19,31 +19,41 @@ output_fields_name      = ['row','date','q','rain','temp','ETP_dint','peff','bas
 
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH']     = max_file_size
+app.config['UPLOAD_FOLDER']          = upload_folder
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     
     if request.method == 'POST':
         
-        file_uploading(app, upload_folder, allowed_extensions, max_file_size)
-        
-        app.config['output_filename']     = request.form['output_filename'] + '.csv'
-        app.config['output_full_path']    = os.path.join(dlload_folder, app.config['output_filename'])
-        processing_data(app.config['input_full_path'], app.config['output_full_path'], output_fields_name)
+        input_full_path  = file_uploading(app, allowed_extensions)
+        output_filename  = request.form['output_filename'] + '.csv'
+        output_full_path = os.path.join(dlload_folder, output_filename)
    
-        return redirect('/charts')
+        return redirect(url_for('output_data_calculation', input_full_path = input_full_path, output_full_path = output_full_path, output_filename = output_filename))
         
     return render_template('index.html')
+    
+    
+@app.route('/output_data_calculation')
+def output_data_calculation():
+    processing_data(request.args['input_full_path'], request.args['output_full_path'], output_fields_name)
+    return redirect(url_for('display_charts', output_filename=request.args['output_filename']))
+
 
 @app.route('/charts')
-def displaying_charts():
-    data_source = output_folder + "/" + app.config['output_filename']
+def display_charts():
+    data_source = os.path.join(output_folder, request.args['output_filename'])
     return render_template("charts.html", data_source = data_source)
+    
 
 # Need to create a feedback
 @app.route('/DownloadOutputFile') 
 def send_output_csv():
     return send_file(app.config['output_full_path'], mimetype='text/csv', attachment_filename = app.config['output_filename'], as_attachment=True)
+    
 
 @app.route('/archiveDataOnMongoDatabase') 
 def archive():

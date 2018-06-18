@@ -12,7 +12,7 @@ def allowed_file(filename, allowed_extensions):
 # http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
 # adapted to the need 
 
-def file_uploading(app, upload_folder, allowed_extensions, max_file_size):
+def file_uploading(app, allowed_extensions):
     # check if the post request has the file part
     if 'file' not in request.files:
         flash('No file part')
@@ -24,11 +24,7 @@ def file_uploading(app, upload_folder, allowed_extensions, max_file_size):
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(file.filename, allowed_extensions):
-        app.config['MAX_CONTENT_LENGTH']     = max_file_size
-        app.config['UPLOAD_FOLDER']          = upload_folder
-        filename                             = secure_filename(file.filename)
-        # Using the app for storing the filename variable
-        app.config['input_filename']         = filename
-        app.config['input_full_path']        = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(app.config['input_full_path'])
-        return redirect('/')
+        filename        = secure_filename(file.filename)
+        input_full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(input_full_path)
+        return input_full_path

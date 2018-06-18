@@ -1,98 +1,59 @@
-# OUTPUT DATA ------------------------------------------------------------------
-# row         = 'data_1' 
-# date        = 'data_2'
-# q           = 'data_3'
-# rain        = 'data_4'
-# temp        = 'data_5'
-# ETP_dint    = 'data_6'
-# peff        = 'data_7'
+import os
+from flask          import Flask, flash, request, redirect, url_for, render_template, send_file
+from data_input     import file_uploading
+from data_output    import processing_data
+from data_tools     import relative_path
+from archive        import push_to_online_mongo_db
 
-# listDataLine = [row, date, q, rain, temp, ETP_dint, peff]
+# SETTINGS ---------------------------------------------------------------------
+# INPUT DATA
+upload_folder           = relative_path('static/data/data_input')
+output_folder           = 'static/data/data_output'
+dlload_folder           = relative_path(output_folder)
+allowed_extensions      = set(['csv'])
+max_file_size           = 2 * 1024 * 1024 #2 megabytes
+
+# OUTPUT DATA
+# input_fields_name     = ['row','date','q','rain','temp','ETP_dint','peff']
+output_fields_name      = ['row','date','q','rain','temp','ETP_dint','peff','baseflow_1','baseflow_2','baseflow_3']
 
 
-# # WRITING DATA -----------------------------------------------------------------
+app = Flask(__name__)
 
-# def data_csv_format(listDataLine):
-
-#     comma = ','
-#     endOfLine = '\n'
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
     
-#     return comma.join(listDataLine) + endOfLine
-    
-# def data_writing(relative_file_path, newLine):
+    if request.method == 'POST':
+        
+        file_uploading(app, upload_folder, allowed_extensions, max_file_size)
+        
+        app.config['output_filename']     = request.form['output_filename'] + '.csv'
+        app.config['output_full_path']    = os.path.join(dlload_folder, app.config['output_filename'])
+        processing_data(app.config['input_full_path'], app.config['output_full_path'], output_fields_name)
+   
+        # return redirect('/charts')
+        return redirect(url_for('displaying_charts', 
+        
+    return render_template('index.html')
 
-#     f = open(relative_path(relative_file_path), "a")
-#     f.write(newLine)
-#     f.close()
-    
-# data_writing("../data/output/test.csv",data_csv_format(listDataLine))
+@app.route('/charts')
+def displaying_charts():
+    data_source = output_folder + "/" + app.config['output_filename']
+    return render_template("charts.html", data_source = data_source)
 
-# # ----------------------------------------------------------------------------
+# Need to create a feedback
+@app.route('/DownloadOutputFile') 
+def send_output_csv():
+    return send_file(app.config['output_full_path'], mimetype='text/csv', attachment_filename = app.config['output_filename'], as_attachment=True)
 
-#     writer.writerow({'rain': 'testing', 'date': 'testings'})
-#     writer.writerow({'rain': 'testing', 'date': 'testings'})
-#     writer.writerow({'rain': 'Ltesting', 'date': 'testing'})
-#     writer.writerow({'rain': 'Wondtesting', 'date': 'testing'})
+@app.route('/archiveDataOnMongoDatabase') 
+def archive():
+    push_to_online_mongo_db(app.config['output_filename'], app.config['output_full_path'], output_fields_name)
+    return redirect('/')
+        
+# ------------------------------------------------------------------------------
 
-# test_list = ['bonjour','merci','hello','thank you','au-revoir']
+if __name__ == '__main__':
+    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
 
-# for element in test_list:
-#     print(element - 1, element)
-
-# print(round(2.06,1))
-# print(round(2.04,1))
-# string = "NA"
-
-# if '.' in string :
-#     string = string.split('.',2)
-#     string = string[0] + '.' + string[1][:2]
-
-# print(string)
-# nb_dec = 1
-# value_as_string = "0"
-# if '.' in value_as_string or value_as_string == '0':
-#     value_as_string = value_as_string.split('.',nb_dec)
-#     print(value_as_string[0])
-#     print(value_as_string[1])
-#     value_as_string[1] = value_as_string[1] + '0000' 
-#     print(value_as_string[1])
-#     value_as_string = value_as_string[0] + '.' + value_as_string[1][:nb_dec]
-# print(value_as_string)  
-
-# nb_dec = 3
-# value_as_string = '0.1234568'
-# if '.' in value_as_string :
-#     value_as_string = value_as_string.split('.',nb_dec)[0] + '.' + value_as_string.split('.',nb_dec)[1][:nb_dec]
-# print(value_as_string)
-
-# a = 10
-
-# def test():
-#     return a
-    
-# print(test())
-# # 
-# # print('0.123456'.split('.',1))
-
-# # Var from flask to java, though HTML :
-# Specify a data attribute like so:
-
-# <div id="mydiv" data-geocode="{{ geocode|tojson }}">...</div>
-# Then access it in a static JavaScript file like so:
-
-# // Raw JavaScript
-# var geocode = JSON.parse(document.getElementById("mydiv").dataset.geocode);
-
-# // jQuery
-# var geocode = JSON.parse($("#mydiv").data("geocode"));
-
-x = "Bonjour"
-
-def english(y):
-    y = "Hello !"
-    return y
-
-print(x)
-english(x)
-print(x)
-    
+# ------------------------------------------------------------------------------
