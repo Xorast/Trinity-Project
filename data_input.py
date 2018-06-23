@@ -1,6 +1,7 @@
 import os
 from   flask          import flash, request, redirect
 from   werkzeug.utils import secure_filename
+import time
 
 
 # CONTROLING THE INPUT FILE [DEFENSIVE] ----------------------------------------
@@ -24,7 +25,7 @@ def file_uploading(app, allowed_extensions):
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(file.filename, allowed_extensions):
-        filename        = secure_filename(file.filename)
+        filename        = '[' + time.strftime("%Y-%m-%d_%H-%M-%S") + ']__' + secure_filename(file.filename)
         input_full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(input_full_path)
         return input_full_path

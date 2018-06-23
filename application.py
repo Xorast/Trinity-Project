@@ -1,9 +1,11 @@
 import os
-from flask          import Flask, flash, request, redirect, url_for, render_template, send_file
+from flask          import Flask, flash, request, redirect, url_for, render_template, send_file, after_this_request
 from data_input     import file_uploading
 from data_output    import processing_data
 from data_tools     import relative_path
 from archive        import push_to_online_mongo_db
+import  time
+
 
 # SETTINGS ---------------------------------------------------------------------
 # INPUT DATA
@@ -29,10 +31,12 @@ def upload_file():
     if request.method == 'POST':
         
         input_full_path  = file_uploading(app, allowed_extensions)
-        output_filename  = request.form['output_filename'] + '.csv'
+        output_filename  = input_full_path.split("/")[-1].split("__")[0] + "__" + request.form['output_filename'] + '.csv'
         output_full_path = os.path.join(dlload_folder, output_filename)
    
-        return redirect(url_for('output_data_calculation', input_full_path = input_full_path, output_full_path = output_full_path, output_filename = output_filename))
+        return redirect(url_for('output_data_calculation',  input_full_path     = input_full_path, 
+                                                            output_full_path    = output_full_path, 
+                                                            output_filename     = output_filename   ))
         
     return render_template('index.html')
     
@@ -40,6 +44,7 @@ def upload_file():
 @app.route('/output_data_calculation')
 def output_data_calculation():
     processing_data(request.args['input_full_path'], request.args['output_full_path'], output_fields_name)
+    os.remove(relative_path(request.args['input_full_path']))
     return redirect(url_for('display_charts', output_filename=request.args['output_filename']))
 
 
@@ -52,14 +57,19 @@ def display_charts():
 # Need to create a feedback
 @app.route('/DownloadOutputFile') 
 def send_output_csv():
-    return send_file(app.config['output_full_path'], mimetype='text/csv', attachment_filename = app.config['output_filename'], as_attachment=True)
+    return send_file(relative_path(request.args['data_source']), mimetype='text/csv', attachment_filename = request.args['data_source'].split("/")[-1], as_attachment=True)
     
 
 @app.route('/archiveDataOnMongoDatabase') 
 def archive():
-    push_to_online_mongo_db(app.config['output_filename'], app.config['output_full_path'], output_fields_name)
-    return redirect('/')
-        
+    push_to_online_mongo_db(relative_path(request.args['data_source']), output_fields_name)
+    return redirect(url_for('display_charts', output_filename=request.args['data_source'].split("/")[-1]))
+    
+@app.route('/deleteFiles')
+def delete_files():
+    os.remove(relative_path(request.args['data_source']))
+    return redirect("/")
+
 # ------------------------------------------------------------------------------
 
 if __name__ == '__main__':

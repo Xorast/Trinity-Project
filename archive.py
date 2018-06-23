@@ -7,7 +7,7 @@ MONGODB_URI  =  os.environ.get("MONGODB_URI")
 MONGODB_NAME =  os.environ.get("MONGODB_NAME")
 
 # Collection name = output_filename | Document name = output_filename | Might change that to distinguish one another
-def push_to_online_mongo_db(output_filename, output_full_path, output_fields_name):    
+def push_to_online_mongo_db(output_full_path, output_fields_name):    
     
     def row_to_dict(row, output_fields_name):
         return { field : row[field] for field in output_fields_name }
@@ -21,7 +21,7 @@ def push_to_online_mongo_db(output_filename, output_full_path, output_fields_nam
     try:
         with MongoClient(MONGODB_URI) as conn:
             db      = conn[MONGODB_NAME]
-            coll    = db[output_filename]
+            coll    = db[output_full_path.split("/")[-1]]
             coll.insert(archive_dictionary)
         
     except BaseException as e:
