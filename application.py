@@ -33,7 +33,7 @@ def upload_file():
         input_full_path  = file_uploading(app, allowed_extensions)
         output_filename  = input_full_path.split("/")[-1].split("__")[0] + "__" + request.form['output_filename'] + '.csv'
         output_full_path = os.path.join(dlload_folder, output_filename)
-   
+    
         return redirect(url_for('output_data_calculation',  input_full_path     = input_full_path, 
                                                             output_full_path    = output_full_path, 
                                                             output_filename     = output_filename   ))
@@ -70,6 +70,10 @@ def delete_files():
     os.remove(relative_path(request.args['data_source']))
     return redirect("/")
 
+@app.route('/template')
+def display_templates():
+    return render_template("index_1.html")
+    
 # ------------------------------------------------------------------------------
 
 if __name__ == '__main__':

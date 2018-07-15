@@ -7,10 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" type="text/css"></link> 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"  integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css"></link> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css"></link> 
     
     <title>TCD - Baseflow</title>
@@ -18,35 +15,163 @@
 
 </head>
 <body>
-    
-    <div class="container">
+    <!-- ==== HEADER ==== -->
     <header>
-        
+    <div class="container-fluid">
         <div class="row">
-            <h1>TRINITY COLLEGE DUBLIN</h1>
-            <h2>BASEFLOW DETERMINATION</h2>
-            <h3>Introduction</h3>
+            <!--<div class="col-sm-2 col-sm-offset-1">-->
+            <!--    <a href="https://www.tcd.ie/">-->
+            <!--    <img class="img-fluid rounded" alt="TRINITY COLLEGE DUBLIN" src="{{ url_for('static', filename='images/trinity-logo.jpg') }}">-->
+            <!--    </a>-->
+            <!--</div>    -->
+        <div class="col-sm-12">
+                <h1 class="text-center">TRINITY COLLEGE DUBLIN</h1>
+        </div>
         </div>
         
-    </header>
-    <section>
-    
-        <h1>Upload your input file :</h1>
-        <form method=post enctype=multipart/form-data action='/'>
-            <input type=file name=file required>
-            <input type=text name=output_filename placeholder='Output filename' required><br>
-            <input type=submit value=Send!>
-        </form>
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="text-center">BASEFLOW DETERMINATION</h2>
+            </div>
+        </div>
         
+    </div>
+    <!--<nav class="container navbar navbar-expand-lg navbar-dark bg-primary">-->
+        
+    <!--        <ul class="navbar-nav navbar-center mr-auto">-->
+    <!--            <li class="nav-item active">-->
+    <!--                <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>-->
+    <!--            </li>-->
+    <!--            <li class="nav-item">-->
+    <!--                <a class="nav-link" href="#">Features</a>-->
+    <!--            </li>-->
+    <!--            <li class="nav-item">-->
+    <!--                <a class="nav-link" href="#">Pricing</a>-->
+    <!--            </li>-->
+    <!--            <li class="nav-item">-->
+    <!--                <a class="nav-link" href="#">About</a>-->
+    <!--            </li>-->
+    <!--        </ul>-->
+
+    <!--</nav>-->
+    
+    
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav navbar-center mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    
+    </header>
+    <!-- ==== SECTION ==== -->
+    <section>
+    <div class="container">
+        
+        <div class="row cs_title">
+            <h3>Introduction</h3><br>
+        </div>
+        <div class="row border-primary cs_main_box">
+            <p>This website is made available by TCD - Trinity College Dublin.
+            Its goals is to give professionals working in the water industry or research a tool to determine the baseflow of a karst system.</p>
+             <div class="cs_float-center">
+                 <button type="button" class="btn btn-outline-success">GET STARTED</button>
+             </div>  
+            
+        </div>
+        
+    
+        <div class="row cs_title">
+            <h3>Team</h3><br>
+        </div>
+        <div class="row border-primary cs_main_box">
+            <div class="col-sm-12">
+            <p>This tools has been made possible thanks to :</p>
+            </div>
+            
+            <div class="row">
+                    <div class="col-sm-6">
+                        <a href="https://www.tcd.ie/civileng/people/research-staff/lea-duran.php">
+                        <img class="rounded-circle portrait" alt="Lea DURAN" src="{{ url_for('static', filename='images/lea-duran.jpg') }}">
+                        </a>
+                    </div>    
+                    <div class="col-sm-6">
+                        <a href="https://www.tcd.ie/civileng/people/doctoral-students/philip-schuler.php">
+                        <img class="rounded-circle portrait" alt="Philip SCHULER" src="{{ url_for('static', filename='images/philip-schuler.jpg') }}">
+                        </a>
+                    </div>
+            </div>
+        </div>
+            
+        </div>
+            
+        
+            
+            
+            
+            <div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Launch demo modal
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h3>Upload your input file :</h3>
+                        <form method=post enctype=multipart/form-data action='/'>
+                            <input type=file name=file required>
+                            <input type=text name=output_filename placeholder='Output filename' required><br>
+                            <input type=submit value=Send!>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
     </section>
     <footer>
-        
     </footer>
     </div> <!--END OF CONTAINER -->
     
-     <!-- SCRIPTS -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     
 </body>
 </html>
