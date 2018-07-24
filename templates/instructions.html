@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}TCD - Baseflow - Homepage{% endblock %}
+
+{% block head %}
+
+  {{ super() }}
+
+{% endblock %}
+
+
+{% block content %}
+
+            <!-- box -->
+            <div class="row cs_title">
+                <h3>Instructions</h3><br>
+            </div>
+            
+            <div class="row border-primary cs_main_box">
+                <div class="col-sm-12">
+                    
+                    <p><strong>How do you use it?</strong></p>
+                    <br>
+                    <ol>
+                        <li>Upload your input data (.csv file)</li>
+                        <li>Click on "process data"</li>
+                        <li>You are done!</li>
+                    </ol>
+                    <br>
+                    
+                    <p><strong>What are the output?</strong></p>
+                    <br>
+                    <ol>
+                        <li>Multiple charts</li>
+                        <li>Downloadable output file</li>
+                    </ol>
+                    <br>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci expedita, enim officiis ratione aperiam obcaecati quo consectetur a modi cum doloribus commodi ipsa. Veniam alias culpa eius, voluptatum incidunt fugit aut, ducimus earum quam optio, libero. Est eligendi itaque repellendus sapiente nesciunt, similique pariatur id quam vero laborum dicta!</p>
+                
+                </div>
+                
+                <div class="cs_float-center">
+                    <a href="/upload"><button type="button" class="btn btn-outline-success btn-lg text-uppercase">START NEW PROJECT</button></a>
+                </div>
+                
+            </div>
+
+{% endblock %}
+
+{% block footer %}
+
+    {{ super() }}
+
+{% endblock %}
+
+{% block scripts %}
+            
+    {{ super() }}
+
+{% endblock %}

@@ -11,6 +11,8 @@
         <link rel="stylesheet"    href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css"></link> 
         <link rel="stylesheet"    href="{{ url_for('static', filename='css/style.css') }}"     type="text/css"></link>
         
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+        
         <link rel="shortcut icon" href="static/images/favicon.ico">
     
         <title>{% block title %}{% endblock %}</title>
@@ -55,12 +57,12 @@
             
                 <div class="navbar-collapse collapse show" id="navbarColor01" style="">
                     <ul class="navbar-nav nav-fill w-100">
-                        <li class="nav-item"><a class="nav-link" href="/">HOME</a>          </li>
-                        <li class="nav-item"><a class="nav-link" href="/">NEW PROJECT</a>   </li>
-                        <li class="nav-item"><a class="nav-link" href="#">CHARTS</a>        </li>
-                        <li class="nav-item"><a class="nav-link" href="#">MODELS</a>        </li>
-                        <li class="nav-item"><a class="nav-link" href="#">INSTRUCTIONS</a>  </li>
-                        <li class="nav-item"><a class="nav-link" href="#">TEAM</a>          </li>
+                        <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i>                    <br>HOME</a>          </li>
+                        <li class="nav-item"><a class="nav-link" href="/instructions"><i class="fas fa-map-signs"></i>   <br>INSTRUCTIONS</a>  </li>
+                        <li class="nav-item"><a class="nav-link" href="/upload"><i class="fas fa-paper-plane"></i>       <br>NEW PROJECT</a>   </li>
+                        <li class="nav-item"><a class="nav-link" href="/charts"><i class="fas fa-chart-area"></i>        <br>CHARTS</a>        </li>
+                        <li class="nav-item"><a class="nav-link" href="/models"><i class="fas fa-file-alt"></i>          <br>MODELS</a>        </li>
+                        <li class="nav-item"><a class="nav-link" href="/team"><i class="fas fa-user"></i>                <br>TEAM</a>          </li>
                     </ul>
                 </div>
                 

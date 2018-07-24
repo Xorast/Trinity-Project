@@ -7,11 +7,11 @@ body {
   font-size:         1.25rem;
 }
 
-.navbar-nav.navbar-center {
-    position:        absolute;
-    left:            50%;
-    transform:       translatex(-50%);
-}
+/*.navbar-nav.navbar-center {*/
+/*    position:        absolute;*/
+/*    left:            50%;*/
+/*    transform:       translatex(-50%);*/
+/*}*/
 
 .cs_p-4-5 {
   padding:           2rem;

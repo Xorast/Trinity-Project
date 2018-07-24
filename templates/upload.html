@@ -8,14 +8,32 @@
 
 
 {% block content %}
+
+            <!-- error messages (wrong file format, ...) -->
+            {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                        {% for message in messages %}
+                                <div class="alert alert-dismissible alert-warning mt-3">
+                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                      <h4 class="alert-heading">Warning!</h4>
+                                      <p class="mb-0">{{ message }}</p>
+                                </div>
+                        {% endfor %}
+                  {% endif %}
+            {% endwith %}
+            
             <!-- box -->
             <div class="row no-gutters cs_title">
-                <h3>Input file upload</h3><br>
+                <h3>New Project</h3><br>
             </div>
             
             <div class="row no-gutters border-primary cs_main_box">
                 
                 <div class="col-sm-12">
+                    <p>To start a new project, please upload your input data.</p>
+                    <br>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil ex minus, incidunt rerum quae dolores dolorem quod rem, distinctio velit aperiam provident harum iure labore neque itaque aliquid quasi magni omnis blanditiis non inventore delectus. Nihil quidem reiciendis officiis sit, molestiae illo libero adipisci nobis odit alias tempore labore repellat soluta, doloribus iste at maiores et. Est sed, voluptatem mollitia.</p>
+                    <br>
                     <p class="text-danger">ATTENTION : FOR THE DATA TO BE PROCESSED, THE FOLLOWING REQUIREMENTS MUST BE MET: </p>
                     <ul>
                         <li><strong>The file must be in CSV format</strong></li>
@@ -32,7 +50,7 @@
                             </ul>
                     </ul>
                     <p><strong>The number of rows has been limited to XXXX. All rows after won't be processed.</strong></p>
-                </div> 
+                </div>
                 
                 <!-- button - trigger modal - file selection -->
                 <div class="cs_float-center">

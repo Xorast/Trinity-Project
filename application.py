@@ -1,6 +1,6 @@
 import os
-from flask          import Flask, flash, request, redirect, url_for, render_template, send_file, after_this_request
-from data_input     import file_uploading
+from flask          import Flask, flash, request, redirect, url_for, render_template, send_file, after_this_request, session
+from data_input     import file_uploading, file_check, get_timestamp
 from data_output    import processing_data
 from data_tools     import relative_path
 from archive        import push_to_online_mongo_db
@@ -23,24 +23,47 @@ output_fields_name      = ['row','date','q','rain','temp','ETP_dint','peff','bas
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH']     = max_file_size
 app.config['UPLOAD_FOLDER']          = upload_folder
+app.secret_key                       = os.environ.get("SECRET_KEY")
+
 
 @app.route('/')
-def get_homepage():
+def get_page_home():
     return render_template('index.html')
+    
 
+@app.route('/instructions')
+def get_page_instructions():
+    return render_template('instructions.html')
 
+    
+@app.route('/models')
+def get_page_models():
+    return render_template('models.html')
+
+@app.route('/team')
+def get_page_team():
+    return render_template('team.html')
+
+    
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     
     if request.method == 'POST':
         
-        input_full_path  = file_uploading(app, allowed_extensions)
-        output_filename  = input_full_path.split("/")[-1].split("__")[0] + "__" + request.form['output_filename'] + '.csv'
-        output_full_path = os.path.join(dlload_folder, output_filename)
+        if file_check(allowed_extensions) : 
+        
+            input_full_path  = file_uploading(app)
+            output_filename  = get_timestamp(input_full_path) + "__" + request.form['output_filename'] + '.csv'
+            output_full_path = os.path.join(dlload_folder, output_filename)
+        
+            session['output_filename'] = output_filename
     
-        return redirect(url_for('output_data_calculation',  input_full_path     = input_full_path, 
-                                                            output_full_path    = output_full_path, 
-                                                            output_filename     = output_filename   ))
+            return redirect(url_for('output_data_calculation',  input_full_path     = input_full_path, 
+                                                                output_full_path    = output_full_path, 
+                                                                output_filename     = output_filename   ))
+        else:
+            
+            return redirect("/upload")
         
     return render_template('upload.html')
     
@@ -54,8 +77,12 @@ def output_data_calculation():
 
 @app.route('/charts')
 def display_charts():
-    data_source = os.path.join(output_folder, request.args['output_filename'])
-    return render_template("charts.html", data_source = data_source)
+    
+    if 'output_filename' in session:
+        data_source = os.path.join(output_folder, session['output_filename'])
+        return render_template("charts_with_data.html", data_source = data_source)
+        
+    return render_template("charts_without_data.html")
     
 
 # Need to create a feedback
@@ -73,10 +100,6 @@ def archive():
 def delete_files():
     os.remove(relative_path(request.args['data_source']))
     return redirect("/")
-
-@app.route('/template')
-def display_templates():
-    return render_template("index_1.html")
     
 # ------------------------------------------------------------------------------
 

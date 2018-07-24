@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}TCD - Baseflow - Charts{% endblock %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+
+{% block content %}
+
+            <!-- warning -->
+            <div class="alert alert-dismissible alert-warning mt-3">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <h4 class="alert-heading">Warning!</h4>
+                  <p class="mb-0">There is no data to display. You must upload and process data first.</p>
+            </div>
+            <!-- box -->
+            <div class="row no-gutters cs_title">
+                <h3>No Data</h3><br>
+            </div>
+            
+            <div class="row no-gutters border-primary cs_main_box">
+                
+                <div class="col-sm-12">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus consequatur sit iste molestiae, architecto laboriosam incidunt dolore corporis consectetur, commodi quas rem nam quam soluta aperiam repellat. Quod, exercitationem vitae.</p>
+                </div>
+                
+                <div class="cs_float-center">
+                    <a href="/upload"><button type="button" class="btn btn-outline-success btn-lg text-uppercase">START NEW PROJECT</button></a>
+                </div>
+                
+            </div>
+            
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}
+
+{% block scripts %}
+            
+            {{ super() }}
+            
+            <!-- charts scripts -->
+            <!-- D3 -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+            <!-- Cross Filter -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+            <!-- DC -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.css" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
+            <!-- Queue -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js"></script>
+            <!-- Charts -->
+            <script type="text/javascript"> var data_source = "{{ data_source }}"</script>
+            <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+
+{% endblock %}

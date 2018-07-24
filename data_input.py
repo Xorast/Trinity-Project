@@ -5,27 +5,36 @@ import time
 
 
 # CONTROLING THE INPUT FILE [DEFENSIVE] ----------------------------------------
-def allowed_file(filename, allowed_extensions):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
+def allowed_extensions_check(filename, allowed_extensions):
+    return ('.' in filename) and (filename.rsplit('.', 1)[1].lower() in allowed_extensions)
+    
+def file_check(allowed_extensions):
+    
+    if 'file' not in request.files:
+        flash('No file part. Please try again.')
+        return False
+    
+    file = request.files['file']
+    if file.filename == '':
+        flash('No selected file. Please try again.')
+        return False
+    
+    if not(file and allowed_extensions_check(file.filename, allowed_extensions)):
+        flash('File format not supported. Please try again with a ".csv" file.')
+        return False
+    
+    return True
 
 # UPLOADING THE INPUT DATA -----------------------------------------------------
-# code coming from the flask documentation : 
-# http://flask.pocoo.org/docs/1.0/patterns/fileuploads/
-# adapted to the need 
+def file_uploading(app):
+    
+    file            = request.files['file']
+    filename        = '[' + time.strftime("%Y-%m-%d_%H-%M-%S") + ']__' + secure_filename(file.filename)
+    input_full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(input_full_path)
+    
+    return input_full_path
 
-def file_uploading(app, allowed_extensions):
-    # check if the post request has the file part
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
-    file = request.files['file']
-    # if user does not select file, browser also
-    # submit an empty part without filename
-    if file.filename == '':
-        flash('No selected file')
-        return redirect(request.url)
-    if file and allowed_file(file.filename, allowed_extensions):
-        filename        = '[' + time.strftime("%Y-%m-%d_%H-%M-%S") + ']__' + secure_filename(file.filename)
-        input_full_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(input_full_path)
-        return input_full_path
+def get_timestamp(input_full_path):
+    return input_full_path.split("/")[-1].split("__")[0]
+    
