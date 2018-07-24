@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    {% block head %}
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <link rel="stylesheet"    href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css"></link> 
+        <link rel="stylesheet"    href="{{ url_for('static', filename='css/style.css') }}"     type="text/css"></link>
+        
+        <link rel="shortcut icon" href="static/images/favicon.ico">
+    
+        <title>{% block title %}{% endblock %}</title>
+        
+    {% endblock %}
+    
+</head>
+<body>
+    
+    <!--=== CONTAINER ==== -->
+    <div class="container">
+        
+        <!-- ==== HEADER ==== -->
+        <header>
+            
+            
+            <div class="row">
+                <!--<div class="col-sm-2 col-sm-offset-1">-->
+                <!--    <a href="https://www.tcd.ie/">-->
+                <!--    <img class="img-fluid rounded" alt="TRINITY COLLEGE DUBLIN" src="{{ url_for('static', filename='images/trinity-logo.jpg') }}">-->
+                <!--    </a>-->
+                <!--</div>    -->
+                <div class="col-sm-12">
+                    <h1 class="text-center">TRINITY COLLEGE DUBLIN</h1>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="text-center">BASEFLOW APPLICATION</h2>
+                    <p  class="text-center">Determinate the baseflow of a karst system</p>
+                </div>
+            </div>
+            
+            
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary cs_p-4-5">
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav navbar-center mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="#">HOME</a>          </li>
+                        <li class="nav-item"><a class="nav-link" href="#">CHARTS</a>        </li>
+                        <li class="nav-item"><a class="nav-link" href="#">MODELS</a>        </li>
+                        <li class="nav-item"><a class="nav-link" href="#">INSTRUCTIONS</a>  </li>
+                        <li class="nav-item"><a class="nav-link" href="#">TEAM</a>          </li>
+                    </ul>
+                </div>
+                
+            </nav>
+            
+                
+        </header>
+        <!-- ==== HEADER - END ==== -->
+        
+        <!-- ==== SECTION ==== -->
+        <section>
+        
+            {% block content %}
+            
+            {% endblock %}
+        
+        </section>
+        <!-- ==== SECTION - END ==== -->
+        
+        <!-- ==== FOOTER ==== -->
+        <footer>
+            
+            {% block footer %}
+                
+                <div class="row bg-primary">
+                    
+                    <div class="col-md-6">
+                    <h5 class="text-uppercase">Trinity College Dublin</h5>
+                    <h6>Léa Duran / Philip Schuler</h6>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        
+                    </div>
+                    
+                    <div class="col-md-3">
+                        
+                    </div>
+                    
+                </div>
+                   
+            {% endblock %}
+            
+        </footer>
+        <!-- ==== FOOTER - END ==== -->
+        
+        <!-- ==== SCRIPTS ==== -->
+        {% block scripts %}
+        
+            <!-- base scripts -->
+            <script src="{{ url_for('static', filename='js/jquery.min.js')    }}"></script>
+            <script src="{{ url_for('static', filename='js/popper.min.js')    }}"></script>
+            <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        
+        {% endblock %}
+        <!-- ==== SCRIPTS - END ==== -->
+        
+    </div> 
+    <!--=== CONTAINER - END ==== -->
+    
+</body>
+</html>

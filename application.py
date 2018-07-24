@@ -24,8 +24,12 @@ app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH']     = max_file_size
 app.config['UPLOAD_FOLDER']          = upload_folder
 
+@app.route('/')
+def get_homepage():
+    return render_template('index.html')
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     
     if request.method == 'POST':
@@ -38,7 +42,7 @@ def upload_file():
                                                             output_full_path    = output_full_path, 
                                                             output_filename     = output_filename   ))
         
-    return render_template('index.html')
+    return render_template('upload.html')
     
     
 @app.route('/output_data_calculation')

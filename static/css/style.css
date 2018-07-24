@@ -3,27 +3,31 @@
 /*  margin:0;*/
 /*  padding:0;*/
 /*}*/
-
-nav {
-  padding: 50px;
+body {
+  font-size:         1.25rem;
 }
+
 .navbar-nav.navbar-center {
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
+    position:        absolute;
+    left:            50%;
+    transform:       translatex(-50%);
 }
 
-div p {
-  font-size: 1rem;
+.cs_p-4-5 {
+  padding:           2rem;
 }
+
+/*div p {*/
+/*  font-size: 1rem;*/
+/*}*/
 
 .row {
-  margin:0;
-  padding:15px;
+  margin:            0;
+  padding:           1rem;
 }
 
 .cs_title {
-  padding-top:       100px ;
+  padding-top:       5rem;
   padding-bottom:    0px;
 }
 
@@ -40,13 +44,18 @@ div p {
     /*max-width: 50px;*/
     /*width:100%;*/
     /*height: auto;*/
-    max-height: 150px;
-    max-width: 200px;
-    width: 120px;
-    height: 120px;
+    max-height:      10rem;
+    max-width:       10rem;
+    width:            7rem;
+    height:           7rem;
 }
 
 .cs_float-center {
-   margin-left: auto;
-   margin-right: auto;
+   margin-left:       auto;
+   margin-right:      auto;
+}
+
+footer {
+  margin-top:         7rem;
+  margin-bottom:      1rem;
 }

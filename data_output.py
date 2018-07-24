@@ -45,7 +45,7 @@ def processing_data(input_full_path, output_full_path, output_fields_name):
             # 'baseflow_2':   '',
             # 'baseflow_3':   '',    
         })
-        previous_row_q_value = first_row['q']
+        previous_row_bf_1_value = first_row['q']
         
         for row_line in reader:
             writer.writerow({
@@ -56,8 +56,8 @@ def processing_data(input_full_path, output_full_path, output_fields_name):
                 'temp'      :   data_cleaning(row_line['temp'],dc_temp),
                 'ETP_dint'  :   data_cleaning(row_line['ETP_dint'],dc_ETP_dint),
                 'peff'      :   data_cleaning(row_line['peff'],dc_peff),
-                'baseflow_1':   baseflow_model_1(row_line['q'], previous_row_q_value, a, BFI, dc_q),
+                'baseflow_1':   baseflow_model_1(row_line['q'], previous_row_bf_1_value, a, BFI, dc_q),
                 # 'baseflow_2':   '',
                 # 'baseflow_3':   '',
             })
-            previous_row_q_value = row_line['q']
+            previous_row_bf_1_value = baseflow_model_1(row_line['q'], previous_row_bf_1_value, a, BFI, dc_q)

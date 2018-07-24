@@ -53,6 +53,9 @@ function makeGraph(error, inputData) {
 
     let groupTotalFlow  = dimDate.group().reduceSum(dc.pluck("q"));
     let groupFilteredTotalFlow = remove_empty_bins(groupTotalFlow);
+    
+    let groupBaseFlow  = dimDate.group().reduceSum(dc.pluck("baseflow_1"));
+    let groupFilteredBaseFlow = remove_empty_bins(groupBaseFlow);
 
     // let chart_I_A1      = dc.compositeChart("#chart_I_A");
    
@@ -78,6 +81,9 @@ function makeGraph(error, inputData) {
             dc.lineChart(chart_I_A1)
                 .colors("blue")
                 .group(groupFilteredTotalFlow, "Flow - Total"),
+            dc.lineChart(chart_I_A1)
+                .colors("red")
+                .group(groupFilteredBaseFlow, "Flow - Baseflow 1")
         ])
         .render()
         .renderLabel(true)
@@ -302,8 +308,8 @@ function makeGraph(error, inputData) {
     let arrayChart_I = [chart_I_A1,chart_I_B1];
     
     function layoutChart_I (chartName) {
-        return chartName    .width(1200)
-                            .height(400);
+        return chartName    .width(null)
+                            .height(null);
     }
 
     for (let i in arrayChart_I) {
