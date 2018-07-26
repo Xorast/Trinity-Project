@@ -1,4 +1,5 @@
 // CHARTS
+        
 
 // QUEUEING --------------------------------------------------------------------
 queue()
@@ -66,10 +67,8 @@ function makeGraph(error, inputData) {
         .x(d3.time.scale().domain([minDate, maxDate]))
         .y(d3.scale.linear().domain([0, 1.5]))
         
-        .yAxisLabel("Flow (M3/DAY)")
+        .yAxisLabel("FLOW (M3/DAY)", 20)
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
-        
-        
 
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
@@ -79,10 +78,10 @@ function makeGraph(error, inputData) {
         
         .compose([
             dc.lineChart(chart_I_A1)
-                .colors("blue")
+                .colors("#fd7e14")
                 .group(groupFilteredTotalFlow, "Flow - Total"),
             dc.lineChart(chart_I_A1)
-                .colors("red")
+                .colors("#6610f2")
                 .group(groupFilteredBaseFlow, "Flow - Baseflow 1")
         ])
         .render()
@@ -114,12 +113,12 @@ function makeGraph(error, inputData) {
         .x(d3.time.scale().domain([minDateII, maxDateII]))
         .y(d3.scale.linear().domain([0, 50]))
         
-        .yAxisLabel("RAIN (MM)")
+        .yAxisLabel("RAIN (MM)", 20)
         .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
         
         .elasticX(true)
         
-        .rightYAxisLabel("ETP (Units)")
+        .rightYAxisLabel("ETP (Units)", 20)
         .rightY(d3.scale.linear().domain([0, 10]))
         
         .renderHorizontalGridLines(true)
@@ -130,10 +129,10 @@ function makeGraph(error, inputData) {
         
         .compose([
             dc.barChart(chart_I_B1)
-                .colors("purple")
+                .colors("#6f42c1")
                 .group(groupFilteredRain, "Rain"),
             dc.lineChart(chart_I_B1)
-                .colors("red")
+                .colors("#CC0000")
                 .group(groupFilteredETP, "ETP dint")
                 .useRightYAxis(true)
         ])
@@ -162,8 +161,8 @@ function makeGraph(error, inputData) {
     let chart_II_A1         = dc.boxPlot("#chart_II_A1");
 
     chart_II_A1
-        .y(d3.scale.linear().domain([-0.1, +1.5]))
-        .yAxisLabel("FLOW (M3/DAY)")
+        .y(d3.scale.linear().domain([-0.1, +1.2]))
+        .yAxisLabel("FLOW (M3/DAY)", 20)
         .dimension(dimFlowTotal)
         .group(groupFlowBoxTotal);
         
@@ -188,8 +187,8 @@ function makeGraph(error, inputData) {
     let chart_II_A2         = dc.boxPlot("#chart_II_A2");
 
     chart_II_A2
-        .y(d3.scale.linear().domain([-0.1, +1.5]))
-        .yAxisLabel("METHOD 1 - FLOW (M3/DAY)")
+        .y(d3.scale.linear().domain([-0.1, +1.2]))
+        .yAxisLabel("METHOD 1 - FLOW (M3/DAY)", 20)
         .dimension(dimFlow1)
         .group(groupFlowBox1);
     
@@ -214,8 +213,8 @@ function makeGraph(error, inputData) {
     let chart_II_A3     = dc.boxPlot("#chart_II_A3");
 
     chart_II_A3
-        .y(d3.scale.linear().domain([-0.1, +1.5]))
-        .yAxisLabel("METHOD 2 - FLOW (M3/DAY)")
+        .y(d3.scale.linear().domain([-0.1, +1.2]))
+        .yAxisLabel("METHOD 2 - FLOW (M3/DAY)", 20)
         .dimension(dimFlow2)
         .group(groupFlowBox2);
     
@@ -241,8 +240,8 @@ function makeGraph(error, inputData) {
     let chart_II_A4     = dc.boxPlot("#chart_II_A4");
 
     chart_II_A4
-        .y(d3.scale.linear().domain([-0.1, +1.5]))
-        .yAxisLabel("METHOD 3 - FLOW (M3/DAY)")
+        .y(d3.scale.linear().domain([-0.1, +1.2]))
+        .yAxisLabel("METHOD 3 - FLOW (M3/DAY)", 20)
         .dimension(dimFlow3)
         .group(groupFlowBox3);
         
@@ -252,15 +251,15 @@ function makeGraph(error, inputData) {
     let chart_II_B1         = dc.barChart("#chart_II_B1");
     
     chart_II_B1
-        .width(250)
-        .height(250)
+        // .width(250)
+        // .height(250)
         .dimension(dimFlowTotal)
         .group(groupVolumeRain)
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
-        .xAxisLabel("Cumulated Rain (MM)");
-    
-   
+        .xAxisLabel("Cumulated Rain (MM)", 10)
+        .margins({ top: 10, right: 50, bottom: 50, left: 50 });
+
 
     // CHART III.A1 - SEASONS PIE CHART ----------------------------------------    
 
@@ -296,8 +295,8 @@ function makeGraph(error, inputData) {
     let chart_III_A1    = dc.pieChart("#chart_III_A1");
     
     chart_III_A1
-        .height(330)
-        .radius(100)
+        // .height(330)
+        // .radius(100)
         .dimension(dimSeason)
         .group(groupSeason);
         
@@ -305,31 +304,32 @@ function makeGraph(error, inputData) {
     // DISPLAY & LAYOUT --------------------------------------------------------
     // CHART - SERIE I ---------------------------------------------------------
     
-    let arrayChart_I = [chart_I_A1,chart_I_B1];
+    // let arrayChart_I = [chart_I_A1,chart_I_B1];
     
-    function layoutChart_I (chartName) {
-        return chartName    .width(null)
-                            .height(null);
-    }
+    // function layoutChart_I (chartName) {
+    //     return chartName    .width(null)
+    //                         .height(null);
+    // }
 
-    for (let i in arrayChart_I) {
-        var taille = layoutChart_I(arrayChart_I[i]);
-    };
+    // for (let i in arrayChart_I) {
+    //     var taille = layoutChart_I(arrayChart_I[i]);
+    // };
     
     // CHART - SERIE II --------------------------------------------------------
     let arrayChart_II = [chart_II_A1,chart_II_A2,chart_II_A3,chart_II_A4];
     
     function layoutChart_II (chartName) {
-        return chartName    .width(250)
-                            .height(250)
-                            .margins({ top: 10, right: 50, bottom: 30, left: 50 });
+        return chartName    
+                            // .width(250)
+                            // .height(250)
+                            .margins({ top: 50, right: 50, bottom: 50, left: 50 });
     }
 
     for (let i in arrayChart_II) {
         var taille = layoutChart_II(arrayChart_II[i]);
     };
 
-
+    
     // TESTING DATE FILTERING --------------------------------------------------
     
     // let dateStart   = parseDate("2010-04-01");
@@ -343,12 +343,14 @@ function makeGraph(error, inputData) {
     //     .filter(null)
     //     .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
     
-
-    
     // // dc.redrawAll(); 
     
     // END OF MAKEGRAPH --------------------------------------------------------
     dc.renderAll();
+    
+    // d3.select("div#chart_I_A").select("svg").classed("svg-content", true);
+    d3.selectAll("svg").classed("svg-content", true);
+    
 };
 
 // -----------------------------------------------------------------------------
@@ -374,3 +376,25 @@ function dateRange() {
         
         .filter(dc.filters.RangedFilter(new Date(dateStart), new Date(dateEnd)));
 }
+
+// ARCHIVE
+// -----------------------------------------------------------------------------
+// Selecting created SVG and modifying them
+// d3.select("div#chart_I_A").select("svg")
+    //           .attr("viewBox", "0 0 50 18")
+    //           .attr("preserveAspectRatio", "xMinYMin meet")
+    //           .classed("svg-content", true);
+    
+// DISPLAY & LAYOUT --------------------------------------------------------
+    // CHART - SERIE I ---------------------------------------------------------
+    
+    // let arrayChart_I = [chart_I_A1,chart_I_B1];
+    
+    // function layoutChart_I (chartName) {
+    //     return chartName    .width(null)
+    //                         .height(null);
+    // }
+
+    // for (let i in arrayChart_I) {
+    //     var taille = layoutChart_I(arrayChart_I[i]);
+    // };

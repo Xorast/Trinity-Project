@@ -41,19 +41,5 @@
 {% block scripts %}
             
             {{ super() }}
-            
-            <!-- charts scripts -->
-            <!-- D3 -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
-            <!-- Cross Filter -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-            <!-- DC -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.css" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
-            <!-- Queue -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js"></script>
-            <!-- Charts -->
-            <script type="text/javascript"> var data_source = "{{ data_source }}"</script>
-            <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
 
 {% endblock %}

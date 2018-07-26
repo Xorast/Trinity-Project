@@ -21,6 +21,7 @@ body {
 /*  font-size: 1rem;*/
 /*}*/
 
+/* use bootstrap classes for that */
 .row {
   margin:            0;
   padding:           1rem;
