@@ -25,7 +25,7 @@ def file_check(allowed_extensions):
     
     return True
 
-# UPLOADING THE INPUT DATA -----------------------------------------------------
+# UPLOADING THE INPUT FILE -----------------------------------------------------
 def file_uploading(app):
     
     file            = request.files['file']

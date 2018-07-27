@@ -7,6 +7,8 @@ from archive        import push_to_online_mongo_db
 import  time
 
 
+
+
 # SETTINGS ---------------------------------------------------------------------
 # INPUT DATA
 upload_folder           = relative_path('static/data/data_input')
@@ -20,6 +22,9 @@ max_file_size           = 2 * 1024 * 1024 #2 megabytes
 output_fields_name      = ['row','date','q','rain','temp','ETP_dint','peff','baseflow_1','baseflow_2','baseflow_3']
 
 
+
+
+# MAIN APP ---------------------------------------------------------------------
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH']     = max_file_size
 app.config['UPLOAD_FOLDER']          = upload_folder
@@ -39,6 +44,7 @@ def get_page_instructions():
 @app.route('/models')
 def get_page_models():
     return render_template('models.html')
+
 
 @app.route('/team')
 def get_page_team():
@@ -85,7 +91,6 @@ def display_charts():
     return render_template("charts_without_data.html")
     
 
-# Need to create a feedback
 @app.route('/DownloadOutputFile') 
 def send_output_csv():
     return send_file(relative_path(request.args['data_source']), mimetype='text/csv', attachment_filename = request.args['data_source'].split("/")[-1], as_attachment=True)
@@ -94,11 +99,18 @@ def send_output_csv():
 @app.route('/archiveDataOnMongoDatabase') 
 def archive():
     push_to_online_mongo_db(relative_path(request.args['data_source']), output_fields_name)
+    # To let X seconds for the user to read the triggered modal.
+    time.sleep(5)
+    # Should go for AJAX to avoid rendering again the page.
     return redirect(url_for('display_charts', output_filename=request.args['data_source'].split("/")[-1]))
+    
     
 @app.route('/deleteFiles')
 def delete_files():
     os.remove(relative_path(request.args['data_source']))
+    session.clear()
+    # To let X seconds for the user to read the triggered modal.
+    time.sleep(5)
     return redirect("/")
     
 # ------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ from data_tools     import relative_path, data_cleaning
 a       = 0.75
 BFI     = 0.25
 
-# MAKING OF THE OUTPUT FILE ----------------------------------------------------
+# CREATING THE OUTPUT FILE -----------------------------------------------------
 def processing_data(input_full_path, output_full_path, output_fields_name):
 
     with open(input_full_path) as input_csvfile, open(output_full_path, 'w', newline='') as output_csvfile :

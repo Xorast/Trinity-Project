@@ -8,7 +8,15 @@
 
 
 {% block content %}
-
+            
+            <!-- command board -->
+            <div class="btn-group cs_btn-sticky" id="commandBoard">
+              
+              <button class="btn btn-lg btn-info" title="Reset All"        onclick="javascript:dc.filterAll(); dc.renderAll();">Reset All</button>
+              <button class="btn btn-lg btn-info" title="Resize Charts"    onclick="resizeCharts()">Resize Charts</button>
+            
+            </div>
+            
             <!-- box -->
             <div class="row no-gutters cs_title">
                 <h3>Success!</h3><br>
@@ -25,7 +33,7 @@
                         <li>Chart X.XX</li>
                         <li>Chart X.XX</li>
                     </ul>
-                    <p><strong>You can also download the output data or archive those data online :</strong></br>
+                    <p><strong>You can download the output data or archive those data online :</strong></br>
                     You can also delete all your data from the server.</p>
                 </div> 
                 
@@ -33,25 +41,94 @@
                 <div class="cs_float-center">
                     <form action="/DownloadOutputFile">
                         <input type="hidden" name="data_source" value="{{ data_source }}"/>
-                        <input type="submit" class="btn btn-lg btn-outline-success " onClick="downloadFeedback()" value="DOWNLOAD"/>
+                        <input type="submit" class="btn btn-lg btn-outline-success" value="DOWNLOAD" data-toggle="modal" data-target="#ModalFeedbackDownload"/>
                     </form>
                 </div>
-                
+
+                <!-- Modal - Feedback - Download -->
+                <div class="modal fade" id="ModalFeedbackDownload" tabindex="-1" role="dialog" aria-labelledby="ModalFeedbackDownload" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-uppercase" id="ModalFeedbackDownload">DOWNLOAD</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                    
+                                <div class="modal-body">
+                                    <p>The file is being downloaded in your default folder.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg btn-outline-success text-uppercase" data-dismiss="modal">OK</button>
+                                </div>
+                    
+                        </div>
+                    </div>
+                </div>
+
                 <!-- button - archive -->
                 <div class="cs_float-center">         
                     <form action="/archiveDataOnMongoDatabase">
                         <input type="hidden" name="data_source" value="{{ data_source }}"/>
-                        <input type="submit" class="btn btn-lg btn-outline-warning" onClick="archiveFeedback()" value="ARCHIVE"/>
+                        <input type="submit" class="btn btn-lg btn-outline-warning" value="ARCHIVE" data-toggle="modal" data-target="#ModalFeedbackArchive"/>
                     </form> 
                 </div>      
+                
+                <!-- Modal - Feedback - Archive -->
+                <div class="modal fade" id="ModalFeedbackArchive" tabindex="-1" role="dialog" aria-labelledby="ModalFeedbackArchive" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-uppercase" id="ModalFeedbackArchive">DOWNLOAD</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                    
+                                <div class="modal-body">
+                                    <p>The data is being archived online. You can acess them <a href="https://mlab.com/"><span data-toggle="tooltip" data-placement="top" title="https://mlab.com/"><strong>here</strong></span></a>.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg btn-outline-success text-uppercase" data-dismiss="modal">OK</button>
+                                </div>
+                    
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- button - delete data -->
                 <div class="cs_float-center">         
                     <form action="/deleteFiles">
                         <input type="hidden" name="data_source" value="{{ data_source }}"/>
-                        <input type="submit" class="btn btn-lg btn-outline-danger" value="DELETE DATA"/>
+                        <input type="submit" class="btn btn-lg btn-outline-danger" value="DELETE DATA" data-toggle="modal" data-target="#ModalFeedbackDelete"/>
                     </form>
                 </div> 
+                
+                <!-- Modal - Feedback - Delete -->
+                <div class="modal fade" id="ModalFeedbackDelete" tabindex="-1" role="dialog" aria-labelledby="ModalFeedbackDelete" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-uppercase" id="ModalFeedbackDelete">DOWNLOAD</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                    
+                                <div class="modal-body">
+                                    <p>The data are being erased.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg btn-outline-success text-uppercase" data-dismiss="modal">OK</button>
+                                </div>
+                    
+                        </div>
+                    </div>
+                </div>
                 
             </div>
             
@@ -119,6 +196,7 @@
                 </div> 
             </div>
             
+            
 {% endblock %}
 
 {% block footer %}
@@ -144,5 +222,7 @@
             <script type="text/javascript"> var data_source = "{{ data_source }}"</script>
             <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
             
+            <!-- UX scripts -->
+            <script src="{{ url_for('static', filename='js/ux.js') }}"></script>
 
 {% endblock %}
