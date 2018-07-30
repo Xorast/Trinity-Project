@@ -9,60 +9,62 @@ CSS build on top of the Bootstrap Framework and the Bootswatch Cyborg theme (htt
 
 
 
-
-body {
-  font-size:          1.25rem;
-}
-
-footer {
-  margin-top:         7rem;
-  margin-bottom:      1rem;
-}
-
-.cs_p-4-5 {
-  padding:            2rem;
-}   
-   
-.row {   
-  margin:             0;
-  padding:            1rem;
-}   
-   
-.cs_title {   
-  padding-top:        5rem;
-  padding-bottom:     0px;
-}   
-   
-.cs_main_box {   
-  border:             2px solid;
-  border-radius:      0.25rem;
-  
-  word-wrap:          break-word;
-  background-color:   #282828;
-  background-clip:    border-box;
-}
-
-.portrait {
-    /*max-width:      50px;*/
-    /*widows: ;       100%;*/
-    /*height:         auto;*/
-    max-height:       10rem;
-    max-width:        10rem;
-    width:            7rem;
-    height:           7rem;
-}
-
-.cs_float-center {
-   margin-left:       auto;
-   margin-right:      auto;
-}
-
-
 #commandBoard {
+    
     display:          none;             /* Hidden by default */
     position:         fixed;            /* Fixed/sticky position */
     left:             50%;
     transform:        translateX(-50%);
     bottom:           20px;             /* Place the button at the bottom of the page */
     z-index:          99;               /* Make sure it does not overlap */
+}
+
+body {
+  
+    font-size:          1.25rem;
+}
+
+footer {
+    
+    margin-top:         7rem;
+    margin-bottom:      1rem;
+}
+
+.row {   
+  
+    margin:             0;
+    padding:            1rem;
+}   
+
+.cs_block-link:hover {
+  
+    text-decoration:    none;
+}
+
+.cs_p-4-5 {
+  
+    padding:            2rem;
+}   
+   
+   
+.cs_title {   
+  
+    padding-top:        5rem;
+    padding-bottom:     0px;
+}   
+   
+.cs_main_box {   
+    
+    border:             2px solid;
+    border-radius:      0.25rem;
+  
+    word-wrap:          break-word;
+    background-color:   #282828;
+    background-clip:    border-box;
+    overflow:           hidden;
+}
+
+.cs_fa-solo {
+    
+    font-size:          2rem;
 }

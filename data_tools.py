@@ -1,7 +1,7 @@
 import os
 
 
-# GETTING RELATIVE PATH --------------------------------------------------------
+# GETTING ABSOLUTE PATH FROM RELATIVE ONE --------------------------------------
 def relative_path(rel_file_path):
     return os.path.join(os.path.dirname(__file__),rel_file_path)
     

@@ -11,7 +11,8 @@ queue()
 
 
 // SETTINGS
-var maxDataRow = 1095;      // Maximum data to be processed. Create an alert / write it cleary somewhere for the user to see.
+var maxDataRow = 1095;      // Maximum data to be processed. 
+                            // If changed, update info in "upload.html"
 
 var chart_I_A1 = dc.compositeChart("#chart_I_A");
 var chart_I_B1 = dc.compositeChart("#chart_I_B1");

@@ -96,6 +96,11 @@ def send_output_csv():
     return send_file(relative_path(request.args['data_source']), mimetype='text/csv', attachment_filename = request.args['data_source'].split("/")[-1], as_attachment=True)
     
 
+@app.route('/DownloadInputExampleFile') 
+def send_input_example_csv():
+    return send_file(relative_path(request.args['data_source']), mimetype='text/csv', attachment_filename = request.args['data_source'].split("/")[-1], as_attachment=True)
+
+
 @app.route('/archiveDataOnMongoDatabase') 
 def archive():
     push_to_online_mongo_db(relative_path(request.args['data_source']), output_fields_name)

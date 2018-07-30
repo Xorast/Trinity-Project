@@ -12,8 +12,8 @@
             <!-- command board -->
             <div class="btn-group cs_btn-sticky" id="commandBoard">
               
-              <button class="btn btn-lg btn-info" title="Reset All"        onclick="javascript:dc.filterAll(); dc.renderAll();">Reset All</button>
-              <button class="btn btn-lg btn-info" title="Resize Charts"    onclick="resizeCharts()">Resize Charts</button>
+              <button class="btn btn-lg btn-info" title="Reset All"        onclick="javascript:dc.filterAll(); dc.renderAll();" >Reset All</button>
+              <button class="btn btn-lg btn-info" title="Resize Charts"    onclick="resizeCharts()" >Resize Charts</button>
             
             </div>
             
@@ -38,7 +38,7 @@
                 </div> 
                 
                 <!-- button - download -->
-                <div class="cs_float-center">
+                <div class="col-sm-4 text-center p-2">
                     <form action="/DownloadOutputFile">
                         <input type="hidden" name="data_source" value="{{ data_source }}"/>
                         <input type="submit" class="btn btn-lg btn-outline-success" value="DOWNLOAD" data-toggle="modal" data-target="#ModalFeedbackDownload"/>
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- button - archive -->
-                <div class="cs_float-center">         
+                <div class="col-sm-4 text-center p-2">            
                     <form action="/archiveDataOnMongoDatabase">
                         <input type="hidden" name="data_source" value="{{ data_source }}"/>
                         <input type="submit" class="btn btn-lg btn-outline-warning" value="ARCHIVE" data-toggle="modal" data-target="#ModalFeedbackArchive"/>
@@ -100,7 +100,7 @@
                 </div>
                 
                 <!-- button - delete data -->
-                <div class="cs_float-center">         
+                <div class="col-sm-4 text-center p-2">            
                     <form action="/deleteFiles">
                         <input type="hidden" name="data_source" value="{{ data_source }}"/>
                         <input type="submit" class="btn btn-lg btn-outline-danger" value="DELETE DATA" data-toggle="modal" data-target="#ModalFeedbackDelete"/>
