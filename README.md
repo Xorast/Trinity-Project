@@ -12,7 +12,7 @@ With the help of the Code Institute Staff.
 
 ## OVERVIEW
 
-Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers worldwide and, to do so, they decided to developed this web app.
+Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers worldwide and, to do so, they decided to create this web app.
 
 This tool enables mainly to determine one important characteristic of a karst (underground water) system : its base flow (output data) from data uploaded (input data) to the website, such as date/flow/rain/...
 
