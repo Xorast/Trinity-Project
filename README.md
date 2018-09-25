@@ -18,7 +18,7 @@ This tool enables mainly to determine one important characteristic of a karst (u
 
 Several methods are used to determine the base flow and can be compared. Other outputs are made available.
 
-The website consists of two parts : 
+The application consists of two parts : 
    * Calculations [Test Driven Development]
    * Presentation of the outputs : data visualisation with dynamics charts [DC/Crossfilter/D3]
    
