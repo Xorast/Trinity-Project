@@ -12,9 +12,9 @@ With the help of the Code Institute Staff.
 
 ## OVERVIEW
 
-Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers worldwide and to do so they decided to go for a web app. This project is the web app.
+Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers worldwide and, to do so, they decided to developed this web app.
 
-This tool enables mainly to determine an important characteristic of a karst (underground water) system : its "base flow" (output data) from data uploaded (input data) to the website, such as date/flow/rain,...
+This tool enables mainly to determine one important characteristic of a karst (underground water) system : its base flow (output data) from data uploaded (input data) to the website, such as date/flow/rain/...
 
 Several methods are used to determine the base flow and can be compared. Other outputs are made available.
 
@@ -26,10 +26,7 @@ The website consists of two parts :
 
 ## WHO IS THIS WEBSITE FOR ?
 
-This website aims to achieve two goals :
-
-   * **Educational :** This project is the second in a list of five projects to develop skills in full stack web development. Its goal is to develop skills in the "interactive front end development".
-   * **Professional :**  This project aims to make available a scientific tool to hydrologists from universities as well as private companies.
+This project aims to make available a scientific tool to hydrologists from universities as well as private companies.
 
 ## FEATURES
 
