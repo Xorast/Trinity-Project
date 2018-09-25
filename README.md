@@ -35,10 +35,11 @@ Once on the website [website url & link] landing page, the user is walked throug
 With the help of the Code Institute Staff.
 
 ## BUILT WITH
-### TECHNOLOGIES
+### LANGUAGES
 
-   * HTML5 (Link to be supplied)
-   * CSS3 (Link to be supplied)
+  * JavaScript
+  * HTML5 
+  * CSS3
 
 ### FRAMEWORK & LIBRAIRIES
    * Bootstrap version X.Y (Link to be supplied)
@@ -57,32 +58,8 @@ With the help of the Code Institute Staff.
 ## LICENSE
 
 ## FEATURES
-
-### FEATURES - IMPLEMENTED
-
-   * /
-
+### FEATURES - IMPLEMENTED 
 ### FEATURES - TO BE IMPLEMENTED
-
 #### Input uploading
    * Uploading of data files (input)
    * Secure the input uploading
-
-#### Calculations
-   * Equations
-
-#### Charts
-
-##### Serie 1 - Base flow
-   * Chart I.A : Base Flow
-
-##### Serie 2 - Statistics : Rain, ETP, Volume, Temperature
-   * Chart II.A : Rain
-   * Chart II.B : ETP
-   * Chart II.C : Volume
-   * Chart II.D : Temperature
-
-#### Output downloading
-   * The outputs can be downloaded by users.
-   * Several options to choose what outputs you want to donwload.
-
