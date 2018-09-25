@@ -1,5 +1,6 @@
 # PROJECT TRINITY
-PROJECT II - INTERACTIVE FRONT END DEVELOPMENT
+
+
 
 ## AUTHOR(S)
 
@@ -7,16 +8,21 @@ PROJECT II - INTERACTIVE FRONT END DEVELOPMENT
    
 With the help of the Code Institute Staff.
 
+
+
 ## OVERVIEW
 
-This website makes available a tool developed by Trinity College teams.
-This tool enable to determine the "base flow" of a karst system (output) from data uploaded to the website, such as date/flow/rain (input).
-Several methods are used to determine it and can be compared.
-Other outputs are made available.
+Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers worldwide and to do so they decided to go for a web app. This project is the web app.
 
-The website consist of two parts : 
+This tool enables mainly to determine an important characteristic of a karst (underground water) system : its "base flow" (output data) from data uploaded (input data) to the website, such as date/flow/rain,...
+
+Several methods are used to determine the base flow and can be compared. Other outputs are made available.
+
+The website consists of two parts : 
    * Calculations [Test Driven Development]
-   * Presentation of the outputs : dynamics charts [DC/Crossfilter/D3]
+   * Presentation of the outputs : data visualisation with dynamics charts [DC/Crossfilter/D3]
+   
+   
 
 ## WHO IS THIS WEBSITE FOR ?
 
