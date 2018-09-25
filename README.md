@@ -1,6 +1,6 @@
 # PROJECT TRINITY
 
-## OVERVIEW
+## OVERVIEW - WHAT FOR ?
 
 Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers and engineers worldwide and they decided to create this web app to do so.
 
