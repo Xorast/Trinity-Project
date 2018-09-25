@@ -24,9 +24,9 @@ Once on the website [website url & link] landing page, the user is walked throug
 
   * Making sure the input data format is correct (csv format, order of the data: 1. rain, 2. flow, ...))
   * Uploading the data file
-  * Then, application processes the data and generates :
-        ** Output data in a downloadable csv file
-        ** Dynamic charts
+  * Then, the application processes the data and generates :
+        ...* Output data in a downloadable csv file
+        ...* Dynamic charts
     
 ## AUTHOR(S)
 
