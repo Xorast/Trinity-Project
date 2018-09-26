@@ -19,6 +19,16 @@ CSS build on top of the Bootstrap Framework and the Bootswatch Cyborg theme (htt
     z-index:          99;               /* Make sure it does not overlap */
 }
 
+#infoBoard {
+    
+    display:          none;             /* Hidden by default */
+    position:         fixed;            /* Fixed/sticky position */
+    left:             50%;
+    transform:        translateX(-50%);
+    top:              20px;             /* Place the button at the top of the page */
+    z-index:          99;               /* Make sure it does not overlap */
+}
+
 body {
   
     font-size:          1.25rem;

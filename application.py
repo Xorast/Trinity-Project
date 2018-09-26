@@ -73,11 +73,13 @@ def upload_file():
         
     return render_template('upload.html')
     
-    
+# ERROR HANDLING TO BE SOLVE -------   
 @app.route('/output_data_calculation')
 def output_data_calculation():
+    
     processing_data(request.args['input_full_path'], request.args['output_full_path'], output_fields_name)
     os.remove(relative_path(request.args['input_full_path']))
+    
     return redirect(url_for('display_charts', output_filename=request.args['output_filename']))
 
 
