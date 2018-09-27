@@ -1,6 +1,6 @@
 # PROJECT TRINITY
 
-Online scientific tool developed for Trinity College Dublin [Ongoing development].
+Online scientific tool developed for Trinity College Dublin. Ongoing development.
 
 [https://trinity-college-dublin-flow.herokuapp.com/](https://trinity-college-dublin-flow.herokuapp.com/)
 
@@ -25,7 +25,7 @@ This application is made available publicly for hydrologists from universities a
 
 ## HOW TO USE IT ?
 
-Once on the website [website url & link] landing page, the user is walked through the following steps:
+Once on the [website](https://trinity-college-dublin-flow.herokuapp.com/) landing page, the user is walked through the following steps:
 
 * Making sure the input data format is correct (csv format, order of the data: 1. rain, 2. flow, ...))
 * Uploading the data file
@@ -51,13 +51,13 @@ The application is written in:
 The following frameworks and librairies have been used:
 * [Flask](http://flask.pocoo.org/)
 * Data processing and visualisation:
-    * [Crossfilter](http://square.github.io/crossfilter/)
-    * [DC](https://dc-js.github.io/dc.js/)
-    * [D3](https://d3js.org/)
+    * [Crossfilter](http://square.github.io/crossfilter/) - JavaScript library for exploring large multivariate datasets in the browser
+    * [DC](https://dc-js.github.io/dc.js/) -  Javascript charting library
+    * [D3](https://d3js.org/) - JavaScript library for data visualisation
 * [Bootstrap](http://getbootstrap.com/) version 4.1.2
 
 ## CREDITS
-* [Bootswatch](https://bootswatch.com/) - Used theme [here](https://bootswatch.com/cyborg/)
+* Theme: [Bootswatch](https://bootswatch.com/) - Used theme [here](https://bootswatch.com/cyborg/)
 
 ## UPCOMMING DEVELOPMENT
 The next steps in the development are :
