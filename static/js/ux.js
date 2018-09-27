@@ -22,7 +22,7 @@ function scrollFunction_commandBoard() {
 
 // Show & Hide infos
 function scrollFunction_infoBoard() {
-    if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
         document.getElementById("infoBoard").style.display = "block";
     } else {
         document.getElementById("infoBoard").style.display = "none";
