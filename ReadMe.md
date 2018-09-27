@@ -1,6 +1,7 @@
 # PROJECT TRINITY
 
 Online scientific tool developed for Trinity College Dublin [Ongoing development].
+[https://trinity-college-dublin-flow.herokuapp.com/](https://trinity-college-dublin-flow.herokuapp.com/)
 
 ## OVERVIEW - WHAT IS THIS APPLICATION FOR ?
 
@@ -52,7 +53,7 @@ The following frameworks and librairies have been used:
     * [Crossfilter](http://square.github.io/crossfilter/)
     * [DC](https://dc-js.github.io/dc.js/)
     * [D3](https://d3js.org/)
-* [Bootstrap](http://getbootstrap.com/) version 4.1.2 (Link to be supplied)
+* [Bootstrap](http://getbootstrap.com/) version 4.1.2
 
 ## CREDITS
 * [Bootswatch](https://bootswatch.com/) - Used theme [here](https://bootswatch.com/cyborg/)
@@ -61,4 +62,4 @@ The following frameworks and librairies have been used:
 The next steps in the development are :
 
 * Downloadable pdf file with charts and data
-* Two more models for the baseflow determination (TDD to be used)
+* Two more models for the baseflow determination (Test-Driven-Development to be used)
