@@ -1,5 +1,7 @@
 # PROJECT TRINITY
 
+Online scientific tool developed for Trinity College Dublin [Ongoing development].
+
 ## OVERVIEW - WHAT IS THIS APPLICATION FOR ?
 
 Trinity College has a desktop application that is shared locally. They want to make this tool available to all researchers and engineers worldwide and they decided to create this web app to do so.
@@ -10,9 +12,10 @@ Several methods are used to determine the base flow and can be compared.
 
 Other outputs are made available.
 
-The application consists of two parts : 
-   * Calculations [Test Driven Development]
-   * Presentation of the outputs : data visualisation with dynamics charts [DC/Crossfilter/D3]
+The application consists of three parts :
+* User input upload
+* Calculations
+* Presentation of the outputs : data visualisation with dynamics charts
    
 ## WHO IS THIS APPLICATION FOR ?
 
@@ -36,30 +39,26 @@ With the help of the Code Institute Staff.
 
 ## BUILT WITH
 ### LANGUAGES
-
-  * JavaScript
-  * HTML5 
-  * CSS3
+The application is written in:
+* [Python 3]() (3.4.3)
+* JavaScript
+* HTML5 
+* CSS3
 
 ### FRAMEWORK & LIBRAIRIES
-   * Bootstrap version X.Y (Link to be supplied)
-   * Crossfilter / DC / D3 (Links to be supplied)
-
-### TDD
-   * Jasmine (Link to be supplied)
-
-## TESTING
-  * See this link for the test table
+The following frameworks and librairies have been used:
+* [Flask](http://flask.pocoo.org/)
+* Data processing and visualisation:
+    * [Crossfilter](http://square.github.io/crossfilter/)
+    * [DC](https://dc-js.github.io/dc.js/)
+    * [D3](https://d3js.org/)
+* [Bootstrap](http://getbootstrap.com/) version 4.1.2 (Link to be supplied)
 
 ## CREDITS
-### MEDIAS
-### INFORMATION
+* [Bootswatch](https://bootswatch.com/) - Used theme [here](https://bootswatch.com/cyborg/)
 
-## LICENSE
+## UPCOMMING DEVELOPMENT
+The next steps in the development are :
 
-## FEATURES
-### FEATURES - IMPLEMENTED 
-### FEATURES - TO BE IMPLEMENTED
-#### Input uploading
-   * Uploading of data files (input)
-   * Secure the input uploading
+* Downloadable pdf file with charts and data
+* Two more models for the baseflow determination (TDD to be used)
