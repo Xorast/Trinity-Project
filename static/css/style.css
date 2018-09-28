@@ -78,3 +78,8 @@ footer {
     
     font-size:          2rem;
 }
+
+.footer-link {
+    color: white; 
+    text-decoration: underline;
+}
