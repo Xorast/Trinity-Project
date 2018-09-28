@@ -39,6 +39,11 @@ function resizeCharts() {
     location.reload();
 }
 
+// Go back button
+function goBack() {
+        window.history.back();
+    }
+    
 
 // -----------------------------------------------------------------------------
 // The following functions has been replaced by modals.

@@ -372,7 +372,7 @@ template {
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
@@ -380,11 +380,11 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1, .h1 {
-  font-size: 4rem;
+  font-size: 3rem; /* 4rem */
 }
 
 h2, .h2 {
-  font-size: 3rem;
+  font-size: 2rem; /* 3 rem */
 }
 
 h3, .h3 {
@@ -396,7 +396,7 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 1.5rem;
+  font-size: 1.0rem; /* 1.5 */
 }
 
 h6, .h6 {

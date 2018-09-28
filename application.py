@@ -92,6 +92,14 @@ def display_charts():
         
     return render_template("charts_without_data.html")
     
+# To be merged / included in '/charts'
+@app.route('/charts-demo')
+def display_charts_demo():
+    
+    demo_file_name = 'data_output_example.csv'
+    data_source = os.path.join(output_folder, demo_file_name)
+    return render_template("charts_with_demo_data.html", data_source = data_source)
+    
 
 @app.route('/DownloadOutputFile') 
 def send_output_csv():
