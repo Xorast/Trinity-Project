@@ -58,13 +58,14 @@
                 </button>
             
                 <div class="navbar-collapse collapse show" id="navbarColor01" style="">
-                    <ul class="navbar-nav nav-fill w-100">
+                    <ul class="nav navbar-nav nav-fill w-100">
                         <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i>                    <br>HOME</a>          </li>
+                        <li class="nav-item"><a class="nav-link" href="/charts-demo"><i class="far fa-eye"></i>         <br>DEMO</a>          </li>
                         <li class="nav-item"><a class="nav-link" href="/instructions"><i class="fas fa-map-signs"></i>   <br>INSTRUCTIONS</a>  </li>
                         <li class="nav-item"><a class="nav-link" href="/upload"><i class="fas fa-paper-plane"></i>       <br>NEW PROJECT</a>   </li>
                         <li class="nav-item"><a class="nav-link" href="/charts"><i class="fas fa-chart-area"></i>        <br>CHARTS</a>        </li>
                         <li class="nav-item"><a class="nav-link" href="/models"><i class="fas fa-file-alt"></i>          <br>MODELS</a>        </li>
-                        <li class="nav-item"><a class="nav-link" href="/team"><i class="fas fa-users"></i>                <br>TEAM</a>          </li>
+                        <li class="nav-item"><a class="nav-link" href="/team"><i class="fas fa-users"></i>                <br>TEAM</a>         </li>
                     </ul>
                 </div>
                 
@@ -121,6 +122,7 @@
             <script src="{{ url_for('static', filename='js/jquery.min.js')    }}"></script>
             <script src="{{ url_for('static', filename='js/popper.min.js')    }}"></script>
             <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/ux.js') }}"></script>
         
         {% endblock %}
         <!-- ==== SCRIPTS - END ==== -->

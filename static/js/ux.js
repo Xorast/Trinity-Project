@@ -42,8 +42,17 @@ function resizeCharts() {
 // Go back button
 function goBack() {
         window.history.back();
-    }
+}
     
+// Active navbar 
+$(document).ready(function () {
+    var url = window.location;
+    $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+    $('ul.nav a').filter(function() {
+         return this.href == url;
+    }).parent().addClass('active');
+});
+
 
 // -----------------------------------------------------------------------------
 // The following functions has been replaced by modals.
