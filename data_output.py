@@ -25,7 +25,7 @@ def processing_data(input_full_path, output_full_path, output_fields_name):
             
             # make a tuple for the field names and their dc_
             # call a loop with data_cleaning (telle quelle : laisse les dates et les row en l'état : "." pas dedans)
-            # writer.writerow { data_cleaning(field) for field in fields_and_parameters } ==> attention : l'ordre est il conservé ?
+            # writer.writerow { data_cleaning(field) for field in fields_and_parameters } ==> attention : is the order preserved ?
             
             # number of decimals
             dc_temp      = 1 

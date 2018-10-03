@@ -73,6 +73,7 @@ def upload_file():
         
     return render_template('upload.html')
     
+
 # ERROR HANDLING TO BE SOLVE -------   
 @app.route('/output_data_calculation')
 def output_data_calculation():
@@ -92,6 +93,7 @@ def display_charts():
         
     return render_template("charts_without_data.html")
     
+
 # To be merged / included in '/charts'
 @app.route('/charts-demo')
 def display_charts_demo():
