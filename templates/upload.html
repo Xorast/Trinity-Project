@@ -59,7 +59,8 @@
                 <!-- button - download & trigger modal - input file example -->
                 <div class="col-sm-6 text-center p-2">    
                         <form action="/DownloadInputExampleFile">
-                            <input type="hidden" name="data_source" value="static/data/data_input_example/data_input_example.csv"/>
+                            <!--<input type="hidden" name="data_source" value="static/data/data_input_example/data_input_example.csv"/>-->
+                            <input type="hidden" name="data_source" value="{{ data_input_path }}"/>
                             <input type="submit" class="btn btn-lg btn-outline-info" value="DOWNLOAD INPUT FILE EXAMPLE" data-toggle="modal" data-target="#ModalFeedbackDownloadExample"/>
                         </form>
                 </div>

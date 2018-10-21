@@ -45,14 +45,16 @@ From this main file, functions are imported from other files:
 * data_input.py is used when the user upload the file
 * data_output.py is used to process the input data. This file import functions from :
     * calls calculations.py (equations)
+* archive.py is used to store the output data on the online database
 * data_tools provides generic functions to be imported by any file
+
 
 The user input file is saved in static/data/data_input.
 The output file is created and saved in static/data/data_output.
 
 Two examples files are given :
 * input file example in static/data/data_input_example. This file is downloadable on the "instructions" page.
-* output file example in static/data/data_output used to generate the demo page.
+* output file example in static/data/data_output_example used to generate the demo page.
 
 
 ## DATA PROTECTION 

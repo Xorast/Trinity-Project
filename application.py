@@ -12,7 +12,10 @@ from archive        import push_to_online_mongo_db
 # SETTINGS ---------------------------------------------------------------------
 # INPUT DATA
 upload_folder           = relative_path('static/data/data_input')
+input_example_folder    = 'static/data/data_input_example'
+input_example_filename  = 'data_input_example.csv'
 output_folder           = 'static/data/data_output'
+output_example_folder   = 'static/data/data_output_example'
 dlload_folder           = relative_path(output_folder)
 allowed_extensions      = set(['csv'])
 max_file_size           = 2 * 1024 * 1024 #2 megabytes
@@ -70,8 +73,10 @@ def upload_file():
         else:
             
             return redirect("/upload")
+    
+    data_input_path = input_example_folder + "/" + input_example_filename
         
-    return render_template('upload.html')
+    return render_template('upload.html', data_input_path=data_input_path)
     
 
 # ERROR HANDLING TO BE SOLVE -------   
@@ -99,7 +104,7 @@ def display_charts():
 def display_charts_demo():
     
     demo_file_name = 'data_output_example.csv'
-    data_source = os.path.join(output_folder, demo_file_name)
+    data_source = os.path.join(output_example_folder, demo_file_name)
     return render_template("charts_with_demo_data.html", data_source = data_source)
     
 
