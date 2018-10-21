@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
+
 {% block title %}TCD - Baseflow - Homepage{% endblock %}
 
+
 {% block head %}
-
   {{ super() }}
-
 {% endblock %}
 
 
 {% block content %}
+
             <!-- box -->
             <div class="row cs_title">
                 <h3>About</h3><br>
@@ -33,7 +34,11 @@
                     
                 </div>
             
-                <div class="col-sm-12 text-center p-2">
+                <div class="col-sm-6 text-center p-2">    
+                      <a href="/charts-demo"><button type="button" class="btn btn-outline-danger btn-lg text-uppercase">SEE DEMO</button></a>
+                </div>
+            
+                <div class="col-sm-6 text-center p-2">
                     <a href="/instructions"><button type="button" class="btn btn-outline-success btn-lg text-uppercase">GET STARTED</button></a>
                 </div>
             
@@ -41,14 +46,12 @@
        
 {% endblock %}
 
+
 {% block footer %}
-
     {{ super() }}
-
 {% endblock %}
 
-{% block scripts %}
-            
-    {{ super() }}
 
+{% block scripts %}
+    {{ super() }}
 {% endblock %}

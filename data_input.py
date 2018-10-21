@@ -1,12 +1,16 @@
 import os
+import time
+
 from   flask          import flash, request, redirect
 from   werkzeug.utils import secure_filename
-import time
+
+
 
 
 # CONTROLING THE INPUT FILE [DEFENSIVE] ----------------------------------------
 def allowed_extensions_check(filename, allowed_extensions):
     return ('.' in filename) and (filename.rsplit('.', 1)[1].lower() in allowed_extensions)
+
     
 def file_check(allowed_extensions):
     
@@ -25,6 +29,8 @@ def file_check(allowed_extensions):
     
     return True
 
+
+
 # UPLOADING THE INPUT FILE -----------------------------------------------------
 def file_uploading(app):
     
@@ -34,6 +40,7 @@ def file_uploading(app):
     file.save(input_full_path)
     
     return input_full_path
+
 
 def get_timestamp(input_full_path):
     return input_full_path.split("/")[-1].split("__")[0]

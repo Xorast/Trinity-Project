@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
+
 {% block title %}TCD - Baseflow - Charts{% endblock %}
+
 
 {% block head %}
   {{ super() }}
@@ -11,10 +13,13 @@
 
             <!-- warning -->
             <div class="alert alert-dismissible alert-warning mt-3">
+                
                   <button type="button" class="close" data-dismiss="alert">&times;</button>
                   <h4 class="alert-heading">Warning!</h4>
                   <p class="mb-0">There is no data to display. You must upload and process data first.</p>
+                  
             </div>
+            
             <!-- box -->
             <div class="row no-gutters cs_title">
                 <h3>No Data</h3><br>
@@ -34,12 +39,12 @@
             
 {% endblock %}
 
+
 {% block footer %}
     {{ super() }}
 {% endblock %}
 
-{% block scripts %}
-            
-            {{ super() }}
 
+{% block scripts %}
+    {{ super() }}
 {% endblock %}

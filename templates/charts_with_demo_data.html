@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
+
 {% block title %}TCD - Baseflow - Demo{% endblock %}
+
 
 {% block head %}
   {{ super() }}
@@ -24,9 +26,9 @@
             
             </div>
             
-            <!-- Go back button -->
+            <!-- button - start new project -->
             <div class="row no-gutters cs_title">
-                <button class="btn btn-outline-danger my-3 text-uppercase" onclick="goBack()">BACK</button>
+                <a href="/instructions"><button class="btn btn-outline-success my-3 text-uppercase">START NEW PROJECT</button></a>
             </div>
             
             <!-- box -->
@@ -213,30 +215,37 @@
             
 {% endblock %}
 
+
 {% block footer %}
     {{ super() }}
 {% endblock %}
+
 
 {% block scripts %}
             
             {{ super() }}
             
-            <!-- charts scripts -->
             <!-- D3 -->
+            <!--<script src="{{ url_for('static', filename='js/d3.js') }}"></script>-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+            
             <!-- Cross Filter -->
+            <!--<script src="{{ url_for('static', filename='js/crossfilter.js') }}"></script>-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+            
             <!-- DC -->
-            <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.css" />-->
             <link rel="stylesheet"    href="{{ url_for('static', filename='css/dc.css') }}" type="text/css"></link>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
+            <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.css" />-->
+            
+            <script src="{{ url_for('static', filename='js/dc.js') }}"></script>
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>-->
+            
             <!-- Queue -->
+            <!--<script src="{{ url_for('static', filename='js/queue.js') }}"></script>-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js"></script>
+            
             <!-- Charts -->
             <script type="text/javascript"> var data_source = "{{ data_source }}"</script>
             <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
-            
-            <!-- UX scripts -->
-            <script src="{{ url_for('static', filename='js/ux.js') }}"></script>
 
 {% endblock %}

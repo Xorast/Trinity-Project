@@ -1,10 +1,10 @@
 import os
+import  time
 from flask          import Flask, flash, request, redirect, url_for, render_template, send_file, after_this_request, session
 from data_input     import file_uploading, file_check, get_timestamp
 from data_output    import processing_data
 from data_tools     import relative_path
 from archive        import push_to_online_mongo_db
-import  time
 
 
 
@@ -115,19 +115,19 @@ def send_input_example_csv():
 
 @app.route('/archiveDataOnMongoDatabase') 
 def archive():
+    
     push_to_online_mongo_db(relative_path(request.args['data_source']), output_fields_name)
-    # To let X seconds for the user to read the triggered modal.
-    time.sleep(5)
-    # Should go for AJAX to avoid rendering again the page.
+    time.sleep(5) # To let X seconds for the user to read the triggered modal.
+    # Should go for AJAX to avoid rendering the page again.
     return redirect(url_for('display_charts', output_filename=request.args['data_source'].split("/")[-1]))
     
     
 @app.route('/deleteFiles')
 def delete_files():
+    
     os.remove(relative_path(request.args['data_source']))
     session.clear()
-    # To let X seconds for the user to read the triggered modal.
-    time.sleep(5)
+    time.sleep(5) # To let X seconds for the user to read the triggered modal.
     return redirect("/")
     
 # ------------------------------------------------------------------------------

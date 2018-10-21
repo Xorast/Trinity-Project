@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
+
 {% block title %}TCD - Baseflow - Upload{% endblock %}
+
 
 {% block head %}
   {{ super() }}
@@ -77,6 +79,7 @@
                                 <div class="modal-body">
                                     <p>The file is being downloaded in your default folder.</p>
                                 </div>
+                                
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-lg btn-outline-success text-uppercase" data-dismiss="modal">OK</button>
                                 </div>
@@ -125,19 +128,15 @@
                 </div>
                  
             </div>
-    
-            
             
 {% endblock %}
+
 
 {% block footer %}
-
     {{ super() }}
-
 {% endblock %}
 
-{% block scripts %}
-            
-    {{ super() }}
 
+{% block scripts %}
+    {{ super() }}
 {% endblock %}

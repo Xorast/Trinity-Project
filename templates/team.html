@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
+
 {% block title %}TCD - Baseflow - Homepage{% endblock %}
 
+
 {% block head %}
-
   {{ super() }}
-
 {% endblock %}
 
 
@@ -51,6 +51,7 @@
                 </div>
                 
                 <div class="col-sm-12 text-center mb-4">
+                    
                     <a href="https://www.linkedin.com/in/web-dev-xavier-astor/" target="_blank">
                         <img class="rounded-circle img-fluid" alt="Xavier ASTOR" src="{{ url_for('static', filename='images/xa.jpg') }}">
                     </a>
@@ -66,14 +67,12 @@
 
 {% endblock %}
 
+
 {% block footer %}
-
     {{ super() }}
-
 {% endblock %}
 
-{% block scripts %}
-            
-    {{ super() }}
 
+{% block scripts %}
+    {{ super() }}
 {% endblock %}
