@@ -47,7 +47,7 @@ From this main file, functions are imported from other files:
     * calls calculations.py (equations)
 * archive.py is used to store the output data on the online database
 * data_tools provides generic functions to be imported by any file
-* data_protection.py is an independent file that is run regularly to ensure datas deletions (see "Data Protection" section).
+* data_protection.py is an independent file that is run regularly (Heroku scheduler) to ensure datas deletions (see "Data Protection" section).
 
 
 The user input file is saved in static/data/data_input.
@@ -62,7 +62,7 @@ Two examples files are given :
 ## DATA PROTECTION 
 
 It is important for the users to know they can trust the website with their data, otherwise they won't use the application. Data are valuable and require a lot of investments from laboratories. 
-In order to protect them and make sure they won't land in other hands, both input & output data that are stored on the server are deleted regularly.
+In order to protect them and make sure they won't land in other hands, both input & output data that are stored on the server are deleted regularly (automated).
 As the data are cached in the user's browser, he/she should be able to still use the generated charts even if the data are not on the server anymore.
 
 Also, the data are transfered with a secure connection (SSL).
