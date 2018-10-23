@@ -1,6 +1,6 @@
 # PROJECT TRINITY
 
-Online scientific tool developed for Trinity College Dublin. Ongoing development.
+Online scientific tool developed for Trinity College Dublin.
 
 [https://www.tcd-baseflow.com/](https://www.tcd-baseflow.com/)
 
