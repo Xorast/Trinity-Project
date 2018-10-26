@@ -84,6 +84,8 @@ The input / output pair will come from another code, already existing for a desk
 
 ## WIREFRAME
 
+See pictures in the "wireframe" folder.
+The big pictures has been drawn to give the structure and then the details has been design as I coded the project.
 
 ## DEPLOYMENT
 
