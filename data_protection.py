@@ -3,7 +3,7 @@ from application import upload_folder, dlload_folder
 
 dir_list = [upload_folder, dlload_folder]
 
-for directory in dir_list :
+for directory in dir_list:
     
     print("Current dir:")
     print(directory)

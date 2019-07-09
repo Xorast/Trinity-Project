@@ -1,37 +1,30 @@
 import os
-import  time
-from flask          import Flask, flash, request, redirect, url_for, render_template, send_file, after_this_request, session
-from data_input     import file_uploading, file_check, get_timestamp
-from data_output    import processing_data
-from data_tools     import relative_path
-from archive        import push_to_online_mongo_db
+import time
+from flask import Flask, flash, request, redirect, url_for, render_template, send_file, after_this_request, session
+from data_input import file_uploading, file_check, get_timestamp
+from data_output import processing_data
+from data_tools import relative_path
+from archive import push_to_online_mongo_db
 
 
+# SETTINGS
+upload_folder = relative_path('static/data/data_input')
+input_example_folder = 'static/data/data_input_example'
+input_example_filename = 'data_input_example.csv'
+output_folder = 'static/data/data_output'
+output_example_folder = 'static/data/data_output_example'
+dlload_folder = relative_path(output_folder)
+allowed_extensions = set(['csv'])
+max_file_size = 2 * 1024 * 1024 #2 megabytes
+
+output_fields_name = ['row', 'date', 'q', 'rain', 'temp', 'ETP_dint', 'peff', 'baseflow_1', 'baseflow_2', 'baseflow_3']
 
 
-# SETTINGS ---------------------------------------------------------------------
-# INPUT DATA
-upload_folder           = relative_path('static/data/data_input')
-input_example_folder    = 'static/data/data_input_example'
-input_example_filename  = 'data_input_example.csv'
-output_folder           = 'static/data/data_output'
-output_example_folder   = 'static/data/data_output_example'
-dlload_folder           = relative_path(output_folder)
-allowed_extensions      = set(['csv'])
-max_file_size           = 2 * 1024 * 1024 #2 megabytes
-
-# OUTPUT DATA
-# input_fields_name     = ['row','date','q','rain','temp','ETP_dint','peff']
-output_fields_name      = ['row','date','q','rain','temp','ETP_dint','peff','baseflow_1','baseflow_2','baseflow_3']
-
-
-
-
-# MAIN APP ---------------------------------------------------------------------
+# APP
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH']     = max_file_size
-app.config['UPLOAD_FOLDER']          = upload_folder
-app.secret_key                       = os.environ.get("SECRET_KEY")
+app.config['MAX_CONTENT_LENGTH'] = max_file_size
+app.config['UPLOAD_FOLDER'] = upload_folder
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 @app.route('/')
@@ -59,17 +52,18 @@ def upload_file():
     
     if request.method == 'POST':
         
-        if file_check(allowed_extensions) : 
+        if file_check(allowed_extensions):
         
-            input_full_path  = file_uploading(app)
-            output_filename  = get_timestamp(input_full_path) + "__" + request.form['output_filename'] + '.csv'
+            input_full_path = file_uploading(app)
+            output_filename = get_timestamp(input_full_path) + "__" + request.form['output_filename'] + '.csv'
             output_full_path = os.path.join(dlload_folder, output_filename)
         
             session['output_filename'] = output_filename
     
-            return redirect(url_for('output_data_calculation',  input_full_path     = input_full_path, 
-                                                                output_full_path    = output_full_path, 
-                                                                output_filename     = output_filename   ))
+            return redirect(url_for('output_data_calculation',
+                                    input_full_path=input_full_path,
+                                    output_full_path=output_full_path,
+                                    output_filename=output_filename))
         else:
             
             return redirect("/upload")
@@ -79,8 +73,7 @@ def upload_file():
     return render_template('upload.html', data_input_path=data_input_path)
     
 
-# ERROR HANDLING TO BE SOLVE -------   
-@app.route('/output_data_calculation')
+@app.route('/output_data_calculation')  # todo: fix bad error handling
 def output_data_calculation():
     
     processing_data(request.args['input_full_path'], request.args['output_full_path'], output_fields_name)
@@ -99,8 +92,7 @@ def display_charts():
     return render_template("charts_without_data.html")
     
 
-# To be merged / included in '/charts'
-@app.route('/charts-demo')
+@app.route('/charts-demo')  # todo: to be merged / included in '/charts'
 def display_charts_demo():
     
     demo_file_name = 'data_output_example.csv'
@@ -122,7 +114,7 @@ def send_input_example_csv():
 def archive():
     
     push_to_online_mongo_db(relative_path(request.args['data_source']), output_fields_name)
-    time.sleep(5) # To let X seconds for the user to read the triggered modal.
+    time.sleep(5)  # Allow the user to read the triggered modal
     # Should go for AJAX to avoid rendering the page again.
     return redirect(url_for('display_charts', output_filename=request.args['data_source'].split("/")[-1]))
     
@@ -132,12 +124,9 @@ def delete_files():
     
     os.remove(relative_path(request.args['data_source']))
     session.clear()
-    time.sleep(5) # To let X seconds for the user to read the triggered modal.
+    time.sleep(5)  # Allow the user to read the triggered modal
     return redirect("/")
-    
-# ------------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
-
-# ------------------------------------------------------------------------------
