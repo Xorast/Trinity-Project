@@ -102,12 +102,18 @@ def display_charts_demo():
 
 @app.route('/DownloadOutputFile') 
 def send_output_csv():
-    return send_file(relative_path(request.args['data_source']), mimetype='text/csv', attachment_filename = request.args['data_source'].split("/")[-1], as_attachment=True)
+    return send_file(relative_path(request.args['data_source']),
+                     mimetype='text/csv',
+                     attachment_filename=request.args['data_source'].split("/")[-1],
+                     as_attachment=True)
     
 
 @app.route('/DownloadInputExampleFile') 
 def send_input_example_csv():
-    return send_file(relative_path(request.args['data_source']), mimetype='text/csv', attachment_filename = request.args['data_source'].split("/")[-1], as_attachment=True)
+    return send_file(relative_path(request.args['data_source']),
+                     mimetype='text/csv',
+                     attachment_filename=request.args['data_source'].split("/")[-1],
+                     as_attachment=True)
 
 
 @app.route('/archiveDataOnMongoDatabase') 
@@ -124,7 +130,7 @@ def delete_files():
     
     os.remove(relative_path(request.args['data_source']))
     session.clear()
-    time.sleep(5)  # Allow the user to read the triggered modal
+    time.sleep(5)  # Allow time for the user to read the triggered modal
     return redirect("/")
 
 
