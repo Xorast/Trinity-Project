@@ -13,7 +13,7 @@ BFI = 0.25
 def processing_data(input_full_path, output_full_path, output_fields_name):
     """ Generate the output file. """
 
-    try:     # todo: fix the try/except 
+    try:
     
         with open(input_full_path) as input_csvfile, open(output_full_path, 'w', newline='') as output_csvfile:
             
@@ -29,7 +29,7 @@ def processing_data(input_full_path, output_full_path, output_fields_name):
             dc_peff = 4 
             dc_ETP_dint = 1 
             
-            # initialization required for the first "baseflow_1" value
+            # initialization required for the first row ("baseflow_1" value)
             first_row = next(reader)
             writer.writerow({
                 'row': first_row['row'],
@@ -43,7 +43,8 @@ def processing_data(input_full_path, output_full_path, output_fields_name):
                 # 'baseflow_2':   '',
             })
             previous_row_bf_1_value = first_row['q']
-            
+
+            # All the other rows
             for row_line in reader:
                 writer.writerow({
                     'row': row_line['row'],
@@ -59,5 +60,5 @@ def processing_data(input_full_path, output_full_path, output_fields_name):
                 previous_row_bf_1_value = baseflow_model_1(row_line['q'], previous_row_bf_1_value, a, BFI, dc_q)
     
     except Exception as e:
-        flash('There has been an error due to the file content. [' + e + '].')
+        flash('There has been an error due to the file content. [' + str(e) + '].')
         return redirect("/upload")
