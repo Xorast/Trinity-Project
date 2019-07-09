@@ -1,130 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    
-    {% block head %}
-    
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-        <link rel="stylesheet"    href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css"></link> 
-        <link rel="stylesheet"    href="{{ url_for('static', filename='css/style.css') }}"     type="text/css"></link>
-        
-        <link rel="stylesheet"    href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-        
-        <link rel="shortcut icon" href="static/images/favicon-256.png">
-    
-        <title>{% block title %}{% endblock %}</title>
-        
-    {% endblock %}
-    
-</head>
-<body>
-    
-    <!--=== CONTAINER ==== -->
-    <div class="container col-md-8 offset-md-2">
-        
-        <!-- ==== HEADER ==== -->
-        <header>
-            
-            <a class="cs_block-link" href="https://www.tcd.ie/" target="_blank">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h1 class="text-center">TRINITY  COLLEGE  DUBLIN</h1>
-                    </div>
-                </div>
-            </a>
-            
-            <a class="cs_block-link" href="/">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h2 class="text-center">BASEFLOW APPLICATION</h2>
-                    </div>
-                </div>
-            </a>
-                <div class="row">   
-                    <div class="col-sm-12">
-                            <p  class="text-center">Determinate & Visualise the baseflow of a karst system</p>
-                    </div>
-                </div>
-            
-            
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                
-                <!--<a class="navbar-brand" href="#"></a>-->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="navbar-collapse collapse show" id="navbarColor01" style="">
-                    <ul class="nav navbar-nav nav-fill w-100">
-                        <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i>                   <br>HOME</a>          </li>
-                        <li class="nav-item"><a class="nav-link" href="/charts-demo"><i class="far fa-eye"></i>         <br>DEMO</a>          </li>
-                        <li class="nav-item"><a class="nav-link" href="/instructions"><i class="fas fa-map-signs"></i>  <br>INSTRUCTIONS</a>  </li>
-                        <li class="nav-item"><a class="nav-link" href="/upload"><i class="fas fa-paper-plane"></i>      <br>NEW PROJECT</a>   </li>
-                        <li class="nav-item"><a class="nav-link" href="/charts"><i class="fas fa-chart-area"></i>       <br>CHARTS</a>        </li>
-                        <li class="nav-item"><a class="nav-link" href="/models"><i class="fas fa-file-alt"></i>         <br>MODELS</a>        </li>
-                        <li class="nav-item"><a class="nav-link" href="/team"><i class="fas fa-users"></i>              <br>TEAM</a>          </li>
-                    </ul>
-                </div>
-                
-            </nav>
-                
-        </header>
-        <!-- ==== HEADER - END ==== -->
-        
-        <!-- ==== SECTION ==== -->
-        <section>
-        
-            {% block content %}
-            
-            {% endblock %}
-        
-        </section>
-        <!-- ==== SECTION - END ==== -->
-        
-        <!-- ==== FOOTER ==== -->
-        <footer>
-            
-            {% block footer %}
-                
-                <div class="row bg-primary">
-                    
-                    <div class="col-md-9">
-                        <h5 class="text-uppercase">Dept. of Civil, Structural & Environmental Engineering</h5>
-                        <h6>Dr Léa Duran & PhD Philip Schuler - <a href="/team" class="footer-link" style="">Contact us!</a></h6>
-                        <h6>College Green<br>Dublin 2, Ireland</h6>
-                    </div>
-    
-                
-                    <div class="col-md-3">
-                        <a class="cs_block-link" href="https://www.tcd.ie/" target="_blank">
-                            <img class="img-fluid rounded" src="{{ url_for('static', filename='images/trinity-logo.jpg')    }}" alt="Trinity Logo">
-                        </a>
-                    </div>
-                
-                    
-                </div>
-                   
-            {% endblock %}
-            
-        </footer>
-        <!-- ==== FOOTER - END ==== -->
-        
-        <!-- ==== SCRIPTS ==== -->
-        {% block scripts %}
-    
-            <script src="{{ url_for('static', filename='js/jquery.min.js')    }}"></script>
-            <script src="{{ url_for('static', filename='js/popper.min.js')    }}"></script>
-            <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/ux.js') }}"></script>
-        
+    <head>
+
+        {% block head %}
+
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+                  integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
+            <link rel="shortcut icon" href="static/images/favicon-256.png">
+
+            <title>{% block title %}{% endblock %}</title>
+
         {% endblock %}
-        <!-- ==== SCRIPTS - END ==== -->
-        
-    </div> 
-    <!--=== CONTAINER - END ==== -->
-    
-</body>
+
+    </head>
+    <body>
+
+        <div class="container col-md-8 offset-md-2">
+
+            <header>
+
+                <a class="cs_block-link" href="https://www.tcd.ie/" target="_blank">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="text-center">TRINITY  COLLEGE  DUBLIN</h1>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="cs_block-link" href="/">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="text-center">BASEFLOW APPLICATION</h2>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p  class="text-center">Determinate & Visualise the baseflow of a karst system</p>
+                    </div>
+                </div>
+
+
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarColor01" aria-controls="navbarColor01"
+                            aria-expanded="true" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="navbar-collapse collapse show" id="navbarColor01" style="">
+                        <ul class="nav navbar-nav nav-fill w-100">
+                            <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i><br>HOME</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/charts-demo"><i class="far fa-eye"></i><br>DEMO</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/instructions"><i class="fas fa-map-signs"></i><br>INSTRUCTIONS</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/upload"><i class="fas fa-paper-plane"></i><br>NEW PROJECT</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/charts"><i class="fas fa-chart-area"></i><br>CHARTS</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/models"><i class="fas fa-file-alt"></i><br>MODELS</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/team"><i class="fas fa-users"></i><br>TEAM</a></li>
+                        </ul>
+                    </div>
+
+                </nav>
+
+            </header>
+
+            <section>
+
+                {% block content %}{% endblock %}
+
+            </section>
+
+            <footer>
+
+                {% block footer %}
+
+                    <div class="row bg-primary">
+
+                        <div class="col-md-9">
+                            <h5 class="text-uppercase">Dept. of Civil, Structural & Environmental Engineering</h5>
+                            <h6>Dr Léa Duran & PhD Philip Schuler - <a href="/team" class="footer-link" style="">Contact us!</a></h6>
+                            <h6>College Green<br>Dublin 2, Ireland</h6>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <a class="cs_block-link" href="https://www.tcd.ie/" target="_blank">
+                                <img class="img-fluid rounded" src="{{ url_for('static', filename='images/trinity-logo.jpg')    }}" alt="Trinity Logo">
+                            </a>
+                        </div>
+
+
+                    </div>
+
+                {% endblock %}
+
+            </footer>
+
+            <!-- ==== SCRIPTS ==== -->
+            {% block scripts %}
+
+                <script src="{{ url_for('static', filename='js/jquery.min.js')    }}"></script>
+                <script src="{{ url_for('static', filename='js/popper.min.js')    }}"></script>
+                <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='js/ux.js') }}"></script>
+
+            {% endblock %}
+            <!-- ==== SCRIPTS - END ==== -->
+
+        </div>
+
+    </body>
 </html>

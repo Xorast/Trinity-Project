@@ -1,13 +1,10 @@
 {% extends "base.html" %}
 
-
 {% block title %}TCD - Baseflow - Upload{% endblock %}
-
 
 {% block head %}
   {{ super() }}
 {% endblock %}
-
 
 {% block content %}
 
@@ -26,18 +23,27 @@
             
             <!-- box -->
             <div class="row no-gutters cs_title">
-                <h3>New Project</h3><br>
+                <h3>New Project</h3>
+                <br>
             </div>
             
             <div class="row no-gutters border-primary cs_main_box">
                 
                 <div class="col-sm-12">
+
                     <p>To start a new project, please upload your input data.</p>
+
+                    <p>Your time series has to be daily time step and present 7 columns, respectively the row
+                        (starting from 1), the daily discharge, the amount of rain, the temperature,
+                        the evapotranspiration if available (if not let empty column), and the efficient rainfall
+                        (same comment). The units are details below.</p>
+
+                    <p>You can download an example of input data file below to have a better understanding of
+                        the expected data format.</p>
                     
-                    <p>Your time series has to be daily time step and present 7 columns, respectively the row (starting from 1), the daily discharge, the amount of rain, the temperature, the evapotranspiration if available (if not let empty column), and the efficient rainfall (same comment). The units are details below.</p>
-                    <p>You can download an example of input data file below to have a better understanding of the expected data format.</p>
-                    
-                    <p class="text-danger">ATTENTION : FOR THE DATA TO BE PROCESSED, THE FOLLOWING REQUIREMENTS MUST BE MET: </p>
+                    <p class="text-danger">ATTENTION : FOR THE DATA TO BE PROCESSED, THE FOLLOWING
+                        REQUIREMENTS MUST BE MET: </p>
+
                     <ul>
                         <li><strong>The file must be in CSV format</strong></li>
                         <li><strong>The input must - strictely - be in this order and with these - exact - names:</strong></li>
@@ -53,16 +59,18 @@
                             </ul>
                     </ul>
                     
-                    <p><strong>The number of rows to be processed has been limited to 1095 (3 x 365 days). Any additionnal rows won't be processed.</strong></p>
+                    <p><strong>The number of rows to be processed has been limited to 1095 (3 x 365 days).
+                        Any additionnal rows won't be processed.</strong></p>
+
                 </div>
                 
                 <!-- button - download & trigger modal - input file example -->
                 <div class="col-sm-6 text-center p-2">    
-                        <form action="/DownloadInputExampleFile">
-                            <!--<input type="hidden" name="data_source" value="static/data/data_input_example/data_input_example.csv"/>-->
-                            <input type="hidden" name="data_source" value="{{ data_input_path }}"/>
-                            <input type="submit" class="btn btn-lg btn-outline-info" value="DOWNLOAD INPUT FILE EXAMPLE" data-toggle="modal" data-target="#ModalFeedbackDownloadExample"/>
-                        </form>
+                    <form action="/DownloadInputExampleFile">
+                        <!--<input type="hidden" name="data_source" value="static/data/data_input_example/data_input_example.csv"/>-->
+                        <input type="hidden" name="data_source" value="{{ data_input_path }}"/>
+                        <input type="submit" class="btn btn-lg btn-outline-info" value="DOWNLOAD INPUT FILE EXAMPLE" data-toggle="modal" data-target="#ModalFeedbackDownloadExample"/>
+                    </form>
                 </div>
                 
                 <!-- modal - feedback - download -->
@@ -70,30 +78,30 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                                 
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-uppercase" id="ModalFeedbackDownloadExample">DOWNLOAD</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                         <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                    
-                                <div class="modal-body">
-                                    <p>The file is being downloaded in your default folder.</p>
-                                </div>
-                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-lg btn-outline-success text-uppercase" data-dismiss="modal">OK</button>
-                                </div>
-                    
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="ModalFeedbackDownloadExample">DOWNLOAD</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p>The file is being downloaded in your default folder.</p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lg btn-outline-success text-uppercase" data-dismiss="modal">OK</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 
                 <!-- button - trigger modal - file selection -->
                 <div class="col-sm-6 text-center p-2">    
-                         <button type="button" class="btn btn-lg btn-outline-success" data-toggle="modal" data-target="#ModalFileSelection">
-                          SELECT INPUT FILE
-                         </button>
+                     <button type="button" class="btn btn-lg btn-outline-success" data-toggle="modal" data-target="#ModalFileSelection">
+                         SELECT INPUT FILE
+                     </button>
                 </div>
                 
                 <!-- modal - file selection -->
@@ -101,28 +109,31 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                                 
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-uppercase" id="ModalFileSelection">INPUT FILE</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="ModalFileSelection">INPUT FILE</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form method=post enctype=multipart/form-data action='/upload'>
+
+                                <div class="modal-body">
+                                    <label for="input_file">Select the input file:</label>
+                                    <input id="input_file" class="form-control-file" accept=".csv" type=file name=file required>
+                                    <small class="form-text text-muted">Make sure the file meet the requirements aforementioned.</small>
+                                    <br>
+                                    <label for="output_filename">Desired output filename:</label>
+                                    <input id="output_filename" class="form-control" type=text name=output_filename required>
+                                    <small class="form-text text-muted">CSV output format. No need to end the filename with ".csv".</small>
                                 </div>
-                    
-                                <form method=post enctype=multipart/form-data action='/upload'>
-                                    <div class="modal-body">
-                                        <label for="input_file">Select the input file:</label>
-                                        <input id="input_file" class="form-control-file" accept=".csv" type=file name=file required>
-                                        <small class="form-text text-muted">Make sure the file meet the requirements aforementioned.</small>
-                                        <br> 
-                                        <label for="output_filename">Desired output filename:</label>
-                                        <input id="output_filename" class="form-control" type=text name=output_filename required>
-                                        <small class="form-text text-muted">CSV output format. No need to end the filename with ".csv".</small>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input class="btn btn-lg btn-outline-success" type=submit value='PROCESS DATA'>
-                                        <button type="button" class="btn btn-lg btn-outline-danger text-uppercase" data-dismiss="modal">CLOSE</button>
-                                    </div>
-                                </form>
+
+                                <div class="modal-footer">
+                                    <input class="btn btn-lg btn-outline-success" type=submit value='PROCESS DATA'>
+                                    <button type="button" class="btn btn-lg btn-outline-danger text-uppercase" data-dismiss="modal">CLOSE</button>
+                                </div>
+
+                            </form>
                     
                         </div>
                     </div>
@@ -132,11 +143,9 @@
             
 {% endblock %}
 
-
 {% block footer %}
     {{ super() }}
 {% endblock %}
-
 
 {% block scripts %}
     {{ super() }}
