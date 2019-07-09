@@ -9,6 +9,7 @@ MONGODB_NAME = os.environ.get("MONGODB_NAME")
 
 def push_to_online_mongo_db(output_full_path, output_fields_name):    
     """ Archive the output data online (Mongo Database). """
+
     def row_to_dict(row, output_fields_name):
         return {field: row[field] for field in output_fields_name}
     
@@ -17,7 +18,7 @@ def push_to_online_mongo_db(output_full_path, output_fields_name):
     next(reader)
 
     # Collection name = output_filename | Document name = output_filename | Might change that to distinguish one another
-    archive_dictionary = {"output_file": [row_to_dict(row, output_fields_name) for row in reader]}
+    archive_dictionary = {"output_file": [row_to_dict(row, output_fields_name) for row in reader]}  # output_file = reader ?
     
     try:
         with MongoClient(MONGODB_URI) as conn:
