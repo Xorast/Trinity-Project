@@ -3,8 +3,6 @@
 // Scripts to enhance User Experience
 
 
-
-
 // Show & Hide buttons
 window.onscroll = function() {scrollFunction_commandBoard(); scrollFunction_infoBoard()};
 
@@ -14,7 +12,6 @@ function scrollFunction_commandBoard() {
     } else {
         document.getElementById("commandBoard").style.display = "none";
     }
-     
     if (window.innerHeight + window.scrollY > document.body.clientHeight - 100) {
             document.getElementById('commandBoard').style.display='none';
     }
@@ -27,12 +24,10 @@ function scrollFunction_infoBoard() {
     } else {
         document.getElementById("infoBoard").style.display = "none";
     }
-     
     if (window.innerHeight + window.scrollY > document.body.clientHeight - 100) {
             document.getElementById('commandBoard').style.display='none';
     }
 }
-
 
 // Resize charts buttons (charts svg are regenerated)
 function resizeCharts() {
@@ -52,16 +47,3 @@ $(document).ready(function () {
          return this.href == url;
     }).parent().addClass('active');
 });
-
-
-// -----------------------------------------------------------------------------
-// The following functions has been replaced by modals.
-// 
-// function downloadFeedback() {
-//     alert("The file is being downloaded to your default folder.");
-// }
-// 
-// function archiveFeedback() {
-//     alert("The file is being uploaded to the online mongo database.");
-// }
-// -----------------------------------------------------------------------------
